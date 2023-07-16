@@ -1,0 +1,17 @@
+C:\Users\women\source\repos\CrimeSceneDatabase\src\Story\bin\Debug\net7.0\Story.deps.json
+C:\Users\women\source\repos\CrimeSceneDatabase\src\Story\bin\Debug\net7.0\Story.dll
+C:\Users\women\source\repos\CrimeSceneDatabase\src\Story\bin\Debug\net7.0\Story.pdb
+C:\Users\women\source\repos\CrimeSceneDatabase\src\Story\bin\Debug\net7.0\Common.dll
+C:\Users\women\source\repos\CrimeSceneDatabase\src\Story\bin\Debug\net7.0\Domain.dll
+C:\Users\women\source\repos\CrimeSceneDatabase\src\Story\bin\Debug\net7.0\Common.pdb
+C:\Users\women\source\repos\CrimeSceneDatabase\src\Story\bin\Debug\net7.0\Domain.pdb
+C:\Users\women\source\repos\CrimeSceneDatabase\src\Story\obj\Debug\net7.0\Story.csproj.AssemblyReference.cache
+C:\Users\women\source\repos\CrimeSceneDatabase\src\Story\obj\Debug\net7.0\Story.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\women\source\repos\CrimeSceneDatabase\src\Story\obj\Debug\net7.0\Story.AssemblyInfoInputs.cache
+C:\Users\women\source\repos\CrimeSceneDatabase\src\Story\obj\Debug\net7.0\Story.AssemblyInfo.cs
+C:\Users\women\source\repos\CrimeSceneDatabase\src\Story\obj\Debug\net7.0\Story.csproj.CoreCompileInputs.cache
+C:\Users\women\source\repos\CrimeSceneDatabase\src\Story\obj\Debug\net7.0\Story.csproj.CopyComplete
+C:\Users\women\source\repos\CrimeSceneDatabase\src\Story\obj\Debug\net7.0\Story.dll
+C:\Users\women\source\repos\CrimeSceneDatabase\src\Story\obj\Debug\net7.0\refint\Story.dll
+C:\Users\women\source\repos\CrimeSceneDatabase\src\Story\obj\Debug\net7.0\Story.pdb
+C:\Users\women\source\repos\CrimeSceneDatabase\src\Story\obj\Debug\net7.0\ref\Story.dll
