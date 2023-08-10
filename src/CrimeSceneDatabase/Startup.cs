@@ -4,6 +4,7 @@ using Common.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,6 +34,8 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services) {
         services.AddCors();
+        services.AddLogging();
+        services.AddHttpLogging(opt => opt.LoggingFields = HttpLoggingFields.All);
 
         services
             .AddControllers()
@@ -126,6 +129,7 @@ public class Startup
         app.UseResponseCompression();
         app.UseHttpsRedirection();
         app.UseStaticFiles();
+        app.UseHttpLogging();
         app.UseAuthorization();
         app.UseEndpoints(endpoints =>
         {
