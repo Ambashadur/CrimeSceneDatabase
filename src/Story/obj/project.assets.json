@@ -2961,11 +2961,11 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "Common/1.0.0": {
+      "CSD.Common/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "Domain": "1.0.0",
+          "CSD.Domain": "1.0.0",
           "Microsoft.AspNetCore.Http": "2.2.2",
           "Microsoft.AspNetCore.Mvc": "2.2.0",
           "Microsoft.Extensions.Configuration": "7.0.0",
@@ -2974,20 +2974,20 @@
           "System.IdentityModel.Tokens.Jwt": "6.32.0"
         },
         "compile": {
-          "bin/placeholder/Common.dll": {}
+          "bin/placeholder/CSD.Common.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Common.dll": {}
+          "bin/placeholder/CSD.Common.dll": {}
         }
       },
-      "Domain/1.0.0": {
+      "CSD.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "compile": {
-          "bin/placeholder/Domain.dll": {}
+          "bin/placeholder/CSD.Domain.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Domain.dll": {}
+          "bin/placeholder/CSD.Domain.dll": {}
         }
       }
     }
@@ -8311,20 +8311,20 @@
         "system.xml.xpath.xdocument.nuspec"
       ]
     },
-    "Common/1.0.0": {
+    "CSD.Common/1.0.0": {
       "type": "project",
-      "path": "../Common/Common.csproj",
-      "msbuildProject": "../Common/Common.csproj"
+      "path": "../Common/CSD.Common.csproj",
+      "msbuildProject": "../Common/CSD.Common.csproj"
     },
-    "Domain/1.0.0": {
+    "CSD.Domain/1.0.0": {
       "type": "project",
-      "path": "../Domain/Domain.csproj",
-      "msbuildProject": "../Domain/Domain.csproj"
+      "path": "../Domain/CSD.Domain.csproj",
+      "msbuildProject": "../Domain/CSD.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "Common >= 1.0.0"
+      "CSD.Common >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -8334,9 +8334,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Story\\Story.csproj",
-      "projectName": "Story",
-      "projectPath": "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Story\\Story.csproj",
+      "projectUniqueName": "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Story\\CSD.Story.csproj",
+      "projectName": "CSD.Story",
+      "projectPath": "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Story\\CSD.Story.csproj",
       "packagesPath": "C:\\Users\\women\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Story\\obj\\",
       "projectStyle": "PackageReference",
@@ -8360,8 +8360,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Common\\Common.csproj": {
-              "projectPath": "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Common\\Common.csproj"
+            "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Common\\CSD.Common.csproj": {
+              "projectPath": "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Common\\CSD.Common.csproj"
             }
           }
         }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ykcYTDBL/ngcnUGZIc64VZdGWIgB/QR7/kCz0TuBYNX5JOg/YofWOGPF4qynW3GS6vSbwDRZoz54mtZKbnokiw==",
+  "dgSpecHash": "IK4rD1liKiIzvtwLIIRWnhsk/1sVB7N3XcBKlZoI3ocrhTyZaVGNiUtyOmVuHFXENnoS5rv8viJF6T2JT9lZ/Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Story\\Story.csproj",
+  "projectFilePath": "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Story\\CSD.Story.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\women\\.nuget\\packages\\microsoft.aspnetcore.antiforgery\\2.2.0\\microsoft.aspnetcore.antiforgery.2.2.0.nupkg.sha512",
     "C:\\Users\\women\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",

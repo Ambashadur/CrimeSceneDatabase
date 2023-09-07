@@ -2962,14 +2962,14 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "Domain/1.0.0": {
+      "CSD.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "compile": {
-          "bin/placeholder/Domain.dll": {}
+          "bin/placeholder/CSD.Domain.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Domain.dll": {}
+          "bin/placeholder/CSD.Domain.dll": {}
         }
       }
     }
@@ -8293,15 +8293,15 @@
         "system.xml.xpath.xdocument.nuspec"
       ]
     },
-    "Domain/1.0.0": {
+    "CSD.Domain/1.0.0": {
       "type": "project",
-      "path": "../Domain/Domain.csproj",
-      "msbuildProject": "../Domain/Domain.csproj"
+      "path": "../Domain/CSD.Domain.csproj",
+      "msbuildProject": "../Domain/CSD.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "Domain >= 1.0.0",
+      "CSD.Domain >= 1.0.0",
       "Microsoft.AspNetCore.Http >= 2.2.2",
       "Microsoft.AspNetCore.Mvc >= 2.2.0",
       "Microsoft.Extensions.Configuration >= 7.0.0",
@@ -8317,9 +8317,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Common\\Common.csproj",
-      "projectName": "Common",
-      "projectPath": "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Common\\Common.csproj",
+      "projectUniqueName": "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Common\\CSD.Common.csproj",
+      "projectName": "CSD.Common",
+      "projectPath": "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Common\\CSD.Common.csproj",
       "packagesPath": "C:\\Users\\women\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Common\\obj\\",
       "projectStyle": "PackageReference",
@@ -8343,8 +8343,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Domain\\Domain.csproj": {
-              "projectPath": "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Domain\\Domain.csproj"
+            "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Domain\\CSD.Domain.csproj": {
+              "projectPath": "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Domain\\CSD.Domain.csproj"
             }
           }
         }

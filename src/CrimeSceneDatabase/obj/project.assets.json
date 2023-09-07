@@ -3538,11 +3538,11 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
-      "Common/1.0.0": {
+      "CSD.Common/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "Domain": "1.0.0",
+          "CSD.Domain": "1.0.0",
           "Microsoft.AspNetCore.Http": "2.2.2",
           "Microsoft.AspNetCore.Mvc": "2.2.0",
           "Microsoft.Extensions.Configuration": "7.0.0",
@@ -3551,33 +3551,33 @@
           "System.IdentityModel.Tokens.Jwt": "6.32.0"
         },
         "compile": {
-          "bin/placeholder/Common.dll": {}
+          "bin/placeholder/CSD.Common.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Common.dll": {}
+          "bin/placeholder/CSD.Common.dll": {}
         }
       },
-      "Domain/1.0.0": {
+      "CSD.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "compile": {
-          "bin/placeholder/Domain.dll": {}
+          "bin/placeholder/CSD.Domain.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Domain.dll": {}
+          "bin/placeholder/CSD.Domain.dll": {}
         }
       },
-      "Story/1.0.0": {
+      "CSD.Story/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "Common": "1.0.0"
+          "CSD.Common": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/Story.dll": {}
+          "bin/placeholder/CSD.Story.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Story.dll": {}
+          "bin/placeholder/CSD.Story.dll": {}
         }
       }
     }
@@ -9941,29 +9941,29 @@
         "system.xml.xpath.xdocument.nuspec"
       ]
     },
-    "Common/1.0.0": {
+    "CSD.Common/1.0.0": {
       "type": "project",
-      "path": "../Common/Common.csproj",
-      "msbuildProject": "../Common/Common.csproj"
+      "path": "../Common/CSD.Common.csproj",
+      "msbuildProject": "../Common/CSD.Common.csproj"
     },
-    "Domain/1.0.0": {
+    "CSD.Domain/1.0.0": {
       "type": "project",
-      "path": "../Domain/Domain.csproj",
-      "msbuildProject": "../Domain/Domain.csproj"
+      "path": "../Domain/CSD.Domain.csproj",
+      "msbuildProject": "../Domain/CSD.Domain.csproj"
     },
-    "Story/1.0.0": {
+    "CSD.Story/1.0.0": {
       "type": "project",
-      "path": "../Story/Story.csproj",
-      "msbuildProject": "../Story/Story.csproj"
+      "path": "../Story/CSD.Story.csproj",
+      "msbuildProject": "../Story/CSD.Story.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "CSD.Story >= 1.0.0",
       "Microsoft.AspNetCore.Authentication >= 2.2.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 7.0.9",
       "Microsoft.AspNetCore.OpenApi >= 7.0.7",
       "Microsoft.Extensions.Hosting >= 7.0.1",
-      "Story >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.5.0"
     ]
   },
@@ -9974,9 +9974,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\CrimeSceneDatabase\\CrimeSceneDatabase.csproj",
-      "projectName": "CrimeSceneDatabase",
-      "projectPath": "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\CrimeSceneDatabase\\CrimeSceneDatabase.csproj",
+      "projectUniqueName": "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\CrimeSceneDatabase\\CSD.WebApp.csproj",
+      "projectName": "CSD.WebApp",
+      "projectPath": "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\CrimeSceneDatabase\\CSD.WebApp.csproj",
       "packagesPath": "C:\\Users\\women\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\CrimeSceneDatabase\\obj\\",
       "projectStyle": "PackageReference",
@@ -10001,8 +10001,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Story\\Story.csproj": {
-              "projectPath": "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Story\\Story.csproj"
+            "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Story\\CSD.Story.csproj": {
+              "projectPath": "C:\\Users\\women\\source\\repos\\CrimeSceneDatabase\\src\\Story\\CSD.Story.csproj"
             }
           }
         }
