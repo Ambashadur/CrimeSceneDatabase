@@ -10,17 +10,11 @@
 *.userosscache
 *.sln.docstates
 
-# Auto generated test coverage results
-/coverage/
-/reports/
-/results.xml
-
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
 # Mono auto generated files
 mono_crash.*
-.idea
 
 # Build results
 [Dd]ebug/
@@ -43,6 +37,10 @@ bld/
 .vs/
 # Uncomment if you have tasks that create the project's static files in wwwroot
 #wwwroot/
+
+# DRAWIO files
+*.dtmp
+*.bkp
 
 # Visual Studio 2017 auto generated files
 Generated\ Files/

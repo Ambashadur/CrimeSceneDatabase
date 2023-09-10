@@ -18,11 +18,7 @@ public class SceneController : ControllerBase
     private const string AUDIO_FOLDER = "audio";
     private const string TEXT_FOLDER = "text";
 
-    private readonly ILogger<SceneController> _logger;
-
-    public SceneController(ILogger<SceneController> logger) {
-        _logger = logger;
-
+    public SceneController() {
         if (!Directory.Exists(PHOTO_FOLDER)) Directory.CreateDirectory(PHOTO_FOLDER);
         if (!Directory.Exists(SCENE_FOLDER)) Directory.CreateDirectory(SCENE_FOLDER);
         if (!Directory.Exists(AUDIO_FOLDER)) Directory.CreateDirectory(AUDIO_FOLDER);
