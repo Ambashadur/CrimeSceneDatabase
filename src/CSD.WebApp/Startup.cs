@@ -1,21 +1,22 @@
-﻿using CSD.Common;
+﻿using System;
+using System.Text;
+using System.Text.Json.Serialization;
+using CSD.Common;
+using CSD.Common.DataAccess;
 using CSD.Common.Impl;
 using CSD.Common.Settings;
+using CSD.Story.User;
+using CSD.Story.User.Impl;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpLogging;
-using Microsoft.AspNetCore.Localization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using CSD.Story.User;
-using CSD.Story.User.Impl;
-using System.Globalization;
-using System.Text;
-using System.Text.Json.Serialization;
 
 namespace CSD.WebApp;
 
@@ -43,6 +44,13 @@ public class Startup
         services.AddMvc();
         services.AddRouting(options => options.LowercaseUrls = true);
         services.AddEndpointsApiExplorer();
+
+        services.AddDbContext<CsdContext>((serviceProvider, options) => {
+            var settings = serviceProvider.GetRequiredService<IDbSettings>();
+
+            options.UseNpgsql(settings.ConnectionString);
+            options.LogTo(message => Console.WriteLine(message));
+        });
 
         services.AddSwaggerGen(c => {
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme {
@@ -113,20 +121,11 @@ public class Startup
             app.UseSwaggerUI();
         }
 
-        CultureInfo[] supportedCultures = { new("en"), new("ru") };
-
-        app.UseRequestLocalization(new RequestLocalizationOptions {
-            DefaultRequestCulture = new RequestCulture("en"),
-            SupportedCultures = supportedCultures,
-            SupportedUICultures = supportedCultures
-        });
-
         app.UseRouting();
 
         app.UseSwagger();
         app.UseResponseCompression();
         app.UseHttpsRedirection();
-        app.UseStaticFiles();
         app.UseHttpLogging();
         app.UseAuthorization();
         app.UseEndpoints(endpoints =>

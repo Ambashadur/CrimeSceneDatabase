@@ -20,7 +20,7 @@ public class AuthorizationAttribute : Attribute, IAsyncAuthorizationFilter
             return;
         }
 
-        var userTokenService = context.HttpContext.RequestServices.GetService<IUserTokenService>();
+        var userTokenService = context.HttpContext.RequestServices.GetRequiredService<IUserTokenService>();
 
         var userDto = await userTokenService.GetAsync(userToken);
 
