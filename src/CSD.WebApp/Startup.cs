@@ -7,6 +7,7 @@ using CSD.Common.Impl;
 using CSD.Common.Settings;
 using CSD.Story.User;
 using CSD.Story.User.Impl;
+using CSD.WebApp.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -40,6 +41,9 @@ public class Startup
             .AddControllers()
             .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
+        services.AddSingleton<IDbSettings, AppSettings>();
+        services.AddSingleton<IJwtSettings, AppSettings>();
+
         services.AddResponseCompression(x => x.EnableForHttps = true);
         services.AddMvc();
         services.AddRouting(options => options.LowercaseUrls = true);
@@ -51,6 +55,23 @@ public class Startup
             options.UseNpgsql(settings.ConnectionString);
             options.LogTo(message => Console.WriteLine(message));
         });
+
+        services.AddAuthorization();
+        services
+            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(opt =>
+            {
+                opt.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = Configuration["JWT:Issuer"],
+                    ValidateAudience = true,
+                    ValidAudience = Configuration["JWT:Audience"],
+                    ValidateLifetime = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Key"] ?? string.Empty)),
+                    ValidateIssuerSigningKey = true,
+                };
+            });
 
         services.AddSwaggerGen(c => {
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme {
@@ -64,7 +85,7 @@ public class Startup
                   "Example: \"Bearer 12345abcdef\""
             });
 
-            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement()
             {
                 {
                     new OpenApiSecurityScheme
@@ -74,33 +95,18 @@ public class Startup
                     new string[] { }
                 }
             });
-
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(opt => {
-                    opt.RequireHttpsMetadata = false;
-                    opt.TokenValidationParameters = new TokenValidationParameters {
-                        ValidateIssuer = true,
-                        ValidIssuer = Configuration["JWT:Issuer"],
-                        ValidateAudience = true,
-                        ValidAudience = Configuration["JWT:Audience"],
-                        ValidateLifetime = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(
-                            Encoding.ASCII.GetBytes(Configuration["JWT:Key"] ?? string.Empty)),
-                        ValidateIssuerSigningKey = true
-                    };
-                });
         });
 
         services.AddHttpContextAccessor();
 
-        services.AddSingleton<IJwtSettings, AppSettings>();
         services.AddSingleton<IUserTokenService, UserTokenService>();
+        services.AddSingleton<IPasswordHashService, PasswordHashService>();
 
         services.AddScoped<IJwtHandler, JwtHandler>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IUserContext, UserContext>();
 
-        services.AddTransient<IUserStories, UserStories>();
+        services.AddTransient<IUserLoginStory, UserLoginStory>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -110,9 +116,9 @@ public class Startup
             app.UseCors(builder =>
             {
                 builder.WithOrigins("http://localhost:5010")
-                .AllowAnyHeader()
-                .AllowAnyMethod()
-                .AllowCredentials();
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
             });
         }
 
@@ -127,6 +133,7 @@ public class Startup
         app.UseResponseCompression();
         app.UseHttpsRedirection();
         app.UseHttpLogging();
+        app.UseMiddleware<AppExceptionMiddleware>();
         app.UseAuthorization();
         app.UseEndpoints(endpoints =>
         {

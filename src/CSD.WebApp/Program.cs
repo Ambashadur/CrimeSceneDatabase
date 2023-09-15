@@ -1,7 +1,7 @@
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using System.Threading.Tasks;
 
 namespace CSD.WebApp;
 
@@ -25,6 +25,7 @@ public static class HostBuilderExtension
             var env = context.HostingEnvironment.EnvironmentName;
 
             configBuilder.AddJsonFile("appsettings.json");
+            configBuilder.AddJsonFile($"Configs/connectionStrings.{env}.json");
 
             configBuilder.AddEnvironmentVariables();
 

@@ -2,7 +2,7 @@
 
 namespace CSD.Domain.Entities;
 
-[Table("comment")]
+[Table("comments")]
 public class Comment : EntityBase
 {
     [Column("scene_id")]

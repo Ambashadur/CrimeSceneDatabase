@@ -2,7 +2,7 @@
 
 namespace CSD.Domain.Entities;
 
-[Table("scene")]
+[Table("scenes")]
 public class Scene : EntityBase
 {
     [Column("name")]

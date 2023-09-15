@@ -3,7 +3,7 @@ using CSD.Domain.Enums;
 
 namespace CSD.Domain.Entities;
 
-[Table("user")]
+[Table("users")]
 public class User : EntityBase
 {
     [Column("first_name")]

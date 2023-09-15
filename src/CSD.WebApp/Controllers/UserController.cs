@@ -11,17 +11,17 @@ namespace CSD.WebApp.Controllers;
 [Route("sso/[controller]")]
 public class UserController : ControllerBase
 {
-    private readonly IUserStories _userStories;
+    private readonly IUserLoginStory _userStories;
     private readonly IAuthService _authService;
 
-    public UserController(IUserStories userStories, IAuthService authService) {
+    public UserController(IUserLoginStory userStories, IAuthService authService) {
         _userStories = userStories;
         _authService = authService;
     }
 
     [HttpPost("login")]
     public Task<string> Login([FromBody] LoginDto loginDto) {
-        return _userStories.LoginAsync(loginDto);
+        return _userStories.ExecuteAsync(loginDto);
     }
 
     [HttpPost("logout")]
@@ -30,9 +30,9 @@ public class UserController : ControllerBase
         return _authService.SignOutAsync();
     }
 
-    [HttpGet("auth-test")]
+    [HttpPost("register")]
     [Authorization]
-    public Task Test() {
-        return Task.CompletedTask;
+    public async Task<UserDto> Register(RegisterUserDto registerUserDto) { 
+
     }
 }

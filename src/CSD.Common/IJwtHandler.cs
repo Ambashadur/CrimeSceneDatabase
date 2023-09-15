@@ -7,7 +7,7 @@ public interface IJwtHandler
 {
     string GenerateJwtToken(UserDto? userDto);
 
-    ClaimsPrincipal? GetClaimsPrincipal(UserDto? userDto);
+    ClaimsPrincipal GetClaimsPrincipal(UserDto userDto);
 
     UserDto DecodeJwtToken(string userToken);
 }

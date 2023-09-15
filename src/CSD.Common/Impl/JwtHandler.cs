@@ -25,19 +25,19 @@ public class JwtHandler : IJwtHandler
         var claims = ValidateToken(userToken, _jwtSettings.Key).Claims;
 
         return new UserDto() {
-            FirstName = claims.FirstOrDefault(x => x.Type == ConstClaims.FIRST_NAME)?.Value ?? string.Empty,
-            LastName = claims.FirstOrDefault(x => x.Type == ConstClaims.LAST_NAME)?.Value ?? string.Empty,
-            PaternalName = claims.FirstOrDefault(x => x.Type == ConstClaims.PATERNAL_NAME)?.Value ?? string.Empty,
+            FirstName = claims.FirstOrDefault(x => x.Type == ConstClaims.FIRST_NAME)?.Value,
+            LastName = claims.FirstOrDefault(x => x.Type == ConstClaims.LAST_NAME)?.Value,
+            PaternalName = claims.FirstOrDefault(x => x.Type == ConstClaims.PATERNAL_NAME)?.Value,
             Login = claims.FirstOrDefault(x => x.Type == ConstClaims.LOGIN)?.Value ?? string.Empty,
         };
     }
 
     public string GenerateJwtToken(UserDto? userDto) {
-        var claimsPrincipal = GetClaimsPrincipal(userDto);
-
-        if (claimsPrincipal is null) {
-            throw new ArgumentException();
+        if (userDto is null) {
+            throw new ArgumentException("UserDto must be not null!");
         }
+
+        var claimsPrincipal = GetClaimsPrincipal(userDto);
 
         var dateTimeNow = DateTime.UtcNow;
         var jwt = new JwtSecurityToken(
@@ -50,25 +50,21 @@ public class JwtHandler : IJwtHandler
                 _jwtSettings.GetSymmetricSecurityKey(),
                 SecurityAlgorithms.HmacSha256));
 
-        var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-
-        return encodedJwt;
+        return new JwtSecurityTokenHandler().WriteToken(jwt);
     }
 
-    public ClaimsPrincipal? GetClaimsPrincipal(UserDto? userDto) {
-        if (userDto is null) return null;
-
+    public ClaimsPrincipal GetClaimsPrincipal(UserDto userDto) {
         var claims = new List<Claim>() {
-            new(ConstClaims.FIRST_NAME, userDto.FirstName),
-            new(ConstClaims.LAST_NAME, userDto.LastName),
-            new(ConstClaims.PATERNAL_NAME, userDto.PaternalName),
+            new(ConstClaims.FIRST_NAME, userDto.FirstName ?? string.Empty),
+            new(ConstClaims.LAST_NAME, userDto.LastName ?? string.Empty),
+            new(ConstClaims.PATERNAL_NAME, userDto.PaternalName ?? string.Empty),
             new(ConstClaims.LOGIN, userDto.Login),
         };
 
         return new ClaimsPrincipal(new ClaimsIdentity(claims, AUTH_TYPE));
     }
 
-    private JwtSecurityToken ValidateToken(string token, string jwtKey) {
+    private static JwtSecurityToken ValidateToken(string token, string jwtKey) {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(jwtKey);
 
@@ -77,8 +73,8 @@ public class JwtHandler : IJwtHandler
             new TokenValidationParameters() {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ValidateAudience = false,
+                ValidateIssuer = true,
+                ValidateAudience = true,
                 ValidateLifetime = true,
             },
             out SecurityToken validateToken);
