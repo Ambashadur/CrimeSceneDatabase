@@ -11,12 +11,12 @@ public class Comment : EntityBase
     [Column("user_id")]
     public long UserId { get; set; }
 
-    [Column("path_to_audio")]
-    public string PathToAudio { get; set; } = string.Empty;
+    [Column("audio_filename")]
+    public string AudioFileName { get; set; } = string.Empty;
 
-    [Column("path_to_photo")]
-    public string PathToPhoto { get; set;} = string.Empty;
+    [Column("photo_filename")]
+    public string PhotoFileName { get; set;} = string.Empty;
 
-    [Column("path_to_text")]
-    public string PathToText { get; set;} = string.Empty;
+    [Column("text_filename")]
+    public string TextFileName { get; set;} = string.Empty;
 }

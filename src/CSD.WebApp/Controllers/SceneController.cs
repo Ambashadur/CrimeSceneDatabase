@@ -1,11 +1,10 @@
-﻿using System;
+﻿using CSD.Domain.Dto;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
-using CSD.Domain.Dto;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace CSD.WebApp.Controllers;
 

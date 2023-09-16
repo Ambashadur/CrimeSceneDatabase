@@ -24,7 +24,7 @@ namespace CSD.Migrations.Year2023
                 .WithColumn("create_date").AsDateTimeOffset().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
                 .WithColumn("update_date").AsDateTimeOffset().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
                 .WithColumn("name").AsString(256).NotNullable().Unique()
-                .WithColumn("path").AsString(512).NotNullable();
+                .WithColumn("filename").AsString(256).NotNullable();
 
             Create.Table("user_scenes")
                 .WithColumn("id").AsInt64().NotNullable().PrimaryKey().Identity()
@@ -39,17 +39,17 @@ namespace CSD.Migrations.Year2023
                 .WithColumn("update_date").AsDateTimeOffset().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
                 .WithColumn("user_id").AsInt64().NotNullable().ForeignKey("users", "id")
                 .WithColumn("scene_id").AsInt64().NotNullable().ForeignKey("scenes", "id")
-                .WithColumn("path_to_audio").AsString(512).NotNullable()
-                .WithColumn("path_to_photo").AsString(512).NotNullable()
-                .WithColumn("path_to_text").AsString(512).NotNullable();
+                .WithColumn("audio_filename").AsString(256).NotNullable()
+                .WithColumn("photo_filename").AsString(256).NotNullable()
+                .WithColumn("text_filename").AsString(256).NotNullable();
         }
 
         public override void Down()
         {
-            Delete.Table("users");
-            Delete.Table("scenes");
             Delete.Table("comments");
             Delete.Table("user_scenes");
+            Delete.Table("users");
+            Delete.Table("scenes");
         }
     }
 }
