@@ -1,14 +1,15 @@
 ﻿using CSD.Common;
 using CSD.Common.DataAccess;
 using CSD.Domain.Dto;
+using CSD.Domain.Dto.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace CSD.Story.Users.Impl;
+namespace CSD.Story.Users;
 
-public class UserLoginStory : IUserLoginStory
+public class UserLoginStory : IStory<string, LoginDto>
 {
     private readonly IAuthService _authService;
     private readonly IPasswordHashService _passwordHashService;

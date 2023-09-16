@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using CSD.Domain.Dto;
+using CSD.Domain.Dto.Users;
 
 namespace CSD.Common;
 

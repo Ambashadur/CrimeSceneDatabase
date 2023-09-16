@@ -1,14 +1,14 @@
 ﻿using CSD.Common;
 using CSD.Common.DataAccess;
-using CSD.Domain.Dto;
+using CSD.Domain.Dto.Users;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CSD.Story.Users.Impl;
+namespace CSD.Story.Users;
 
-public class RegisterUserStory : IRegisterUserStory
+public class RegisterUserStory : IStory<UserDto, RegisterUserDto>
 {
     private readonly CsdContext _context;
     private readonly ILogger<RegisterUserStory> _logger;
@@ -23,8 +23,7 @@ public class RegisterUserStory : IRegisterUserStory
         _passwordHashService = passwordHashService;
     }
 
-    public async Task<UserDto> ExecuteAsync(RegisterUserDto registerUserDto)
-    {
+    public async Task<UserDto> ExecuteAsync(RegisterUserDto registerUserDto) {
         if (_context.Users.Any(user => user.Login == registerUserDto.Login)) {
             _logger.LogError($"User with login {registerUserDto.Login} try register but user with same login already exist!");
             throw new ArgumentException($"User with login {registerUserDto.Login} already exist!");

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
-using CSD.Domain.Dto;
+using CSD.Domain.Dto.Users;
 
 namespace CSD.Common.Impl;
 

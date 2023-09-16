@@ -1,12 +1,10 @@
-﻿using System;
-using System.Text;
-using System.Text.Json.Serialization;
-using CSD.Common;
+﻿using CSD.Common;
 using CSD.Common.DataAccess;
 using CSD.Common.Impl;
 using CSD.Common.Settings;
+using CSD.Domain.Dto.Users;
+using CSD.Story;
 using CSD.Story.Users;
-using CSD.Story.Users.Impl;
 using CSD.WebApp.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -18,6 +16,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System;
+using System.Text;
+using System.Text.Json.Serialization;
 
 namespace CSD.WebApp;
 
@@ -106,8 +107,8 @@ public class Startup
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IUserContext, UserContext>();
 
-        services.AddTransient<IUserLoginStory, UserLoginStory>();
-        services.AddTransient<IRegisterUserStory, RegisterUserStory>();
+        services.AddTransient<IStory<string, LoginDto>, UserLoginStory>();
+        services.AddTransient<IStory<UserDto, RegisterUserDto>, RegisterUserStory>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {

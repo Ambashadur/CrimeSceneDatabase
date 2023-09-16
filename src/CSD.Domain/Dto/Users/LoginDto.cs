@@ -1,4 +1,4 @@
-﻿namespace CSD.Domain.Dto;
+﻿namespace CSD.Domain.Dto.Users;
 
 public class LoginDto
 {

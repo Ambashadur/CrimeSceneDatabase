@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
-using CSD.Common;
+﻿using CSD.Common;
 using CSD.Common.Attributes;
-using CSD.Domain.Dto;
+using CSD.Domain.Dto.Users;
+using CSD.Story;
 using Microsoft.AspNetCore.Mvc;
-using CSD.Story.Users;
+using System.Threading.Tasks;
 
 namespace CSD.WebApp.Controllers;
 
@@ -11,13 +11,13 @@ namespace CSD.WebApp.Controllers;
 [Route("sso/[controller]")]
 public class UserController : ControllerBase
 {
-    private readonly IUserLoginStory _userLoginStory;
-    private readonly IRegisterUserStory _registerUserStory;
+    private readonly IStory<string, LoginDto> _userLoginStory;
+    private readonly IStory<UserDto, RegisterUserDto> _registerUserStory;
     private readonly IAuthService _authService;
 
     public UserController(
-        IUserLoginStory userStories,
-        IRegisterUserStory registerUserStory,
+        IStory<string, LoginDto> userStories,
+        IStory<UserDto, RegisterUserDto> registerUserStory,
         IAuthService authService) {
         _userLoginStory = userStories;
         _registerUserStory = registerUserStory;
