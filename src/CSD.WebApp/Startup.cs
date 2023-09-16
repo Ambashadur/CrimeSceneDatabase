@@ -5,8 +5,8 @@ using CSD.Common;
 using CSD.Common.DataAccess;
 using CSD.Common.Impl;
 using CSD.Common.Settings;
-using CSD.Story.User;
-using CSD.Story.User.Impl;
+using CSD.Story.Users;
+using CSD.Story.Users.Impl;
 using CSD.WebApp.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -107,6 +107,7 @@ public class Startup
         services.AddScoped<IUserContext, UserContext>();
 
         services.AddTransient<IUserLoginStory, UserLoginStory>();
+        services.AddTransient<IRegisterUserStory, RegisterUserStory>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {

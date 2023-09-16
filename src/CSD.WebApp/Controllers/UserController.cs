@@ -3,7 +3,7 @@ using CSD.Common;
 using CSD.Common.Attributes;
 using CSD.Domain.Dto;
 using Microsoft.AspNetCore.Mvc;
-using CSD.Story.User;
+using CSD.Story.Users;
 
 namespace CSD.WebApp.Controllers;
 
@@ -11,17 +11,22 @@ namespace CSD.WebApp.Controllers;
 [Route("sso/[controller]")]
 public class UserController : ControllerBase
 {
-    private readonly IUserLoginStory _userStories;
+    private readonly IUserLoginStory _userLoginStory;
+    private readonly IRegisterUserStory _registerUserStory;
     private readonly IAuthService _authService;
 
-    public UserController(IUserLoginStory userStories, IAuthService authService) {
-        _userStories = userStories;
+    public UserController(
+        IUserLoginStory userStories,
+        IRegisterUserStory registerUserStory,
+        IAuthService authService) {
+        _userLoginStory = userStories;
+        _registerUserStory = registerUserStory;
         _authService = authService;
     }
 
     [HttpPost("login")]
     public Task<string> Login([FromBody] LoginDto loginDto) {
-        return _userStories.ExecuteAsync(loginDto);
+        return _userLoginStory.ExecuteAsync(loginDto);
     }
 
     [HttpPost("logout")]
@@ -31,8 +36,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("register")]
-    [Authorization]
-    public async Task<UserDto> Register(RegisterUserDto registerUserDto) { 
-
+    public Task<UserDto> Register(RegisterUserDto registerUserDto) {
+        return _registerUserStory.ExecuteAsync(registerUserDto);
     }
 }
