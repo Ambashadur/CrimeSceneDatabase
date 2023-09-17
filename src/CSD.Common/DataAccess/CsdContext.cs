@@ -9,8 +9,6 @@ public class CsdContext : DbContext
 
     public DbSet<Scene> Scenes { get; set; } = null!;
 
-    public DbSet<UserScene> UserScenes { get; set; } = null!;
-
     public DbSet<Comment> Comments { get; set; } = null!;
 
     public CsdContext(DbContextOptions<CsdContext> options) : base(options) {

@@ -1,9 +1,13 @@
 ﻿using CSD.Common;
 using CSD.Common.DataAccess;
+using CSD.Common.Files;
+using CSD.Common.Files.Impl;
 using CSD.Common.Impl;
 using CSD.Common.Settings;
+using CSD.Domain.Dto.Scenes;
 using CSD.Domain.Dto.Users;
 using CSD.Story;
+using CSD.Story.Scenes;
 using CSD.Story.Users;
 using CSD.WebApp.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -41,9 +45,6 @@ public class Startup
         services
             .AddControllers()
             .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
-
-        services.AddSingleton<IDbSettings, AppSettings>();
-        services.AddSingleton<IJwtSettings, AppSettings>();
 
         services.AddResponseCompression(x => x.EnableForHttps = true);
         services.AddMvc();
@@ -100,8 +101,12 @@ public class Startup
 
         services.AddHttpContextAccessor();
 
+        services.AddSingleton<IDbSettings, AppSettings>();
+        services.AddSingleton<IJwtSettings, AppSettings>();
+
         services.AddSingleton<IUserTokenService, UserTokenService>();
         services.AddSingleton<IPasswordHashService, PasswordHashService>();
+        services.AddSingleton<IFileStorage, FileStorage>();
 
         services.AddScoped<IJwtHandler, JwtHandler>();
         services.AddScoped<IAuthService, AuthService>();
@@ -109,6 +114,9 @@ public class Startup
 
         services.AddTransient<IStory<string, LoginDto>, UserLoginStory>();
         services.AddTransient<IStory<UserDto, RegisterUserDto>, RegisterUserStory>();
+        services.AddTransient<IStory<SceneDto, CreateSceneStoryContext>, CreateSceneStory>();
+        services.AddTransient<IStory<PageResult<SceneDto>, GetPageContext>, GetPageScenesStory>();
+        services.AddTransient<IStory<GetSceneStoryResult, GetSceneStoryContext>, GetSceneStory>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -131,7 +139,6 @@ public class Startup
 
         app.UseRouting();
 
-        app.UseSwagger();
         app.UseResponseCompression();
         app.UseHttpsRedirection();
         app.UseHttpLogging();

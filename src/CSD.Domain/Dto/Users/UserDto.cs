@@ -8,5 +8,7 @@ public class UserDto
 
     public string? PaternalName { get; set; }
 
+    public long? SceneId { get; set; }
+
     public string Login { get; set; } = string.Empty;
 }

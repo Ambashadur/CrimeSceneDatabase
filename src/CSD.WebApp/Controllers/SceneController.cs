@@ -1,104 +1,68 @@
-﻿using CSD.Domain.Dto;
+﻿using CSD.Common.Attributes;
+using CSD.Domain.Dto.Scenes;
+using CSD.Story;
+using CSD.Story.Scenes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.IO;
-using System.IO.Compression;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace CSD.WebApp.Controllers;
 
 [ApiController]
+[Authorization]
 [Route("api/[controller]")]
 public class SceneController : ControllerBase
 {
-    private const string PHOTO_FOLDER = "photos";
-    private const string SCENE_FOLDER = "scene";
-    private const string AUDIO_FOLDER = "audio";
-    private const string TEXT_FOLDER = "text";
+    private readonly IStory<SceneDto, CreateSceneStoryContext> _createSceneStory;
+    private readonly IStory<PageResult<SceneDto>, GetPageContext> _getPageSceneStory;
+    private readonly IStory<GetSceneStoryResult, GetSceneStoryContext> _getSceneStory;
 
-    public SceneController() {
-        if (!Directory.Exists(PHOTO_FOLDER)) Directory.CreateDirectory(PHOTO_FOLDER);
-        if (!Directory.Exists(SCENE_FOLDER)) Directory.CreateDirectory(SCENE_FOLDER);
-        if (!Directory.Exists(AUDIO_FOLDER)) Directory.CreateDirectory(AUDIO_FOLDER);
-        if (!Directory.Exists(TEXT_FOLDER)) Directory.CreateDirectory(TEXT_FOLDER);
+    public SceneController(
+        IStory<SceneDto, CreateSceneStoryContext> createSceneStory,
+        IStory<PageResult<SceneDto>, GetPageContext> getPageSceneStory,
+        IStory<GetSceneStoryResult, GetSceneStoryContext> getSceneStory) {
+        _createSceneStory = createSceneStory;
+        _getPageSceneStory = getPageSceneStory;
+        _getSceneStory = getSceneStory;
     }
 
-    [HttpPost("{id:long}")]
-    public async Task SetScene([FromRoute] long id, IFormFile formFile) {
-        if (formFile.Length > 0) {
-            var folderPath = Path.Combine(SCENE_FOLDER, id.ToString());
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(SceneDto))]
+    public async Task<IActionResult> CreateScene([FromForm][Required][StringLength(128)] string name, IFormFile formFile) {
+        if (formFile.Length == 0) return BadRequest();
 
-            if (Directory.Exists(folderPath)) {
-                foreach (var file in Directory.GetFiles(folderPath)) {
-                    System.IO.File.Delete(file);
-                }
-            } else {
-                Directory.CreateDirectory(folderPath);
-            }
+        var sceneDto = default(SceneDto);
 
-            var filePath = Path.Combine(folderPath, formFile.FileName);
-
-            using var stream = System.IO.File.Create(filePath);
-            await formFile.CopyToAsync(stream);
+        using (var stream = formFile.OpenReadStream()) {
+            sceneDto = await _createSceneStory.ExecuteAsync(new CreateSceneStoryContext() {
+                Name = name,
+                Filename = formFile.FileName,
+                Content = stream
+            });
         }
+
+        return Created("api/scene", sceneDto);
+    }
+
+    [HttpPost("page")]
+    public Task<PageResult<SceneDto>> GetScenePage([FromBody] GetPageContext context) {
+        return _getPageSceneStory.ExecuteAsync(context);
     }
 
     [HttpGet("{id:long}")]
-    public IActionResult GetScene([FromRoute] long id) {
-        var files = Directory.GetFiles(Path.Combine(SCENE_FOLDER, id.ToString()));
+    public async Task<IActionResult> GetScene([FromRoute] long id) {
+        //var files = Directory.GetFiles(Path.Combine(SCENE_FOLDER, id.ToString()));
 
-        if (files.Length == 0) return NotFound();
+        //if (files.Length == 0) return NotFound();
 
-        var stream = new FileStream(files[0], FileMode.Open);
-        var fileInfo = new FileInfo(files[0]);
+        //var stream = new FileStream(files[0], FileMode.Open);
+        //var fileInfo = new FileInfo(files[0]);
 
-        return File(stream, "image/" + fileInfo.Extension[1..], fileInfo.Name);
-    }
-
-    [HttpPost("{id:long}/photos")]
-    public async Task AddPhoto([FromRoute] long id, IFormFile formFile) {
-        if (formFile.Length > 0) {
-            var folderPath = Path.Combine(PHOTO_FOLDER, id.ToString());
-
-            if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
-
-            var filePath = Path.Combine(folderPath, formFile.FileName);
-
-            using var stream = System.IO.File.Create(filePath);
-            await formFile.CopyToAsync(stream);
-        }
-    }
-
-    [HttpGet("{id:long}/photos")]
-    public IActionResult GetPhotos([FromRoute] long id) {
-        var files = Directory.GetFiles(Path.Combine(PHOTO_FOLDER, id.ToString()));
-
-        if (files.Length == 0) return NotFound();
-
-        var zipName = $"Фотографии_пользователя_{id}_{DateTime.Now.ToString("yyyy_MM_dd-HH-mm-ss")}.zip";
-        using var memoryStream = new MemoryStream();
-        using (var zip = new ZipArchive(memoryStream, ZipArchiveMode.Create)) {
-            foreach (var file in files) {
-                var entry = zip.CreateEntry(file);
-                using (var fileStream = new FileStream(file, FileMode.Open)) {
-                    using (var entryStream = entry.Open()) {
-                        fileStream.CopyTo(entryStream);
-                    }
-                }
-            }
-        }
-
-        return File(memoryStream.ToArray(), "application/zip", zipName);
-    }
-
-    [HttpPost("{id:long}/text")]
-    public void AddText([FromRoute] long id, CommentDto comment) {
-        var folderPath = Path.Combine(TEXT_FOLDER, id.ToString());
-
-        if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
-
-        var filePath = Path.Combine(folderPath, string.Format("comment_{0}.txt", DateTime.Now.ToString("yyyy_MM_dd-HH-mm-ss")));
-        System.IO.File.WriteAllText(filePath, comment.Comment);
+        //return File(stream, "image/" + fileInfo.Extension[1..], fileInfo.Name);
+        var result = await _getSceneStory.ExecuteAsync(new GetSceneStoryContext() { Id = id });
+        return File(result.Content, result.ContentType, result.Name);
     }
 }

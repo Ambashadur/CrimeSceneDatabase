@@ -15,6 +15,9 @@ public class User : EntityBase
     [Column("paternal_name")]
     public string? PaternalName { get; set; }
 
+    [Column("scene_id")]
+    public long? SceneId { get; set; }
+
     [Column("role")]
     public UserRole Role { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CSD.Common.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -31,6 +32,10 @@ public class AppExceptionMiddleware
             switch (ex) {
                 case ArgumentException:
                     await HandleExceptionAsync(ex.Message, context, ex, HttpStatusCode.BadRequest);
+                    break;
+
+                case BaseException bex:
+                    await HandleExceptionAsync(bex.Message, context, bex, bex.StatusCode);
                     break;
 
                 default:
