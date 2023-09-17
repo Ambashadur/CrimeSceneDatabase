@@ -39,7 +39,18 @@ public class FileStorage : IFileStorage
         return Task.FromResult(fileStream);
     }
 
-    private static string GetPath(ContentType contentType, string name) => contentType switch {
+    public Task CreateTextFileAsync(string text, string name) {
+        var pathToFile = GetPath(ContentType.Text, name);
+
+        if (File.Exists(pathToFile)) {
+            var fileExtenstion = Path.GetExtension(pathToFile);
+            pathToFile = pathToFile.Insert(pathToFile.Length - fileExtenstion.Length - 1, DateTime.UtcNow.ToString("dd_MM_yyyy_hh_mm_ss"));
+        }
+
+        return File.WriteAllTextAsync(pathToFile, text);
+    }
+
+    public string GetPath(ContentType contentType, string name) => contentType switch {
         ContentType.Photo => Path.Combine(PHOTO_FOLDER, name),
         ContentType.Scene => Path.Combine(SCENE_FOLDER, name),
         ContentType.Audio => Path.Combine(AUDIO_FOLDER, name),

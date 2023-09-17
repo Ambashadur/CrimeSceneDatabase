@@ -4,9 +4,12 @@ using CSD.Common.Files;
 using CSD.Common.Files.Impl;
 using CSD.Common.Impl;
 using CSD.Common.Settings;
+using CSD.Common.VoiceRecognition;
+using CSD.Common.VoiceRecognition.Impl;
 using CSD.Domain.Dto.Scenes;
 using CSD.Domain.Dto.Users;
 using CSD.Story;
+using CSD.Story.Comments;
 using CSD.Story.Scenes;
 using CSD.Story.Sso;
 using CSD.Story.Users;
@@ -108,6 +111,7 @@ public class Startup
         services.AddSingleton<IUserTokenService, UserTokenService>();
         services.AddSingleton<IPasswordHashService, PasswordHashService>();
         services.AddSingleton<IFileStorage, FileStorage>();
+        services.AddSingleton<IVoiceRecognitionService, VoiceRecognitionService>();
 
         services.AddScoped<IJwtHandler, JwtHandler>();
         services.AddScoped<IAuthService, AuthService>();
@@ -119,6 +123,8 @@ public class Startup
         services.AddTransient<IStory<PageResult<SceneDto>, GetPageContext>, GetPageScenesStory>();
         services.AddTransient<IStory<GetSceneStoryResult, GetSceneStoryContext>, GetSceneStory>();
         services.AddTransient<IStory<PageResult<UserDto>, GetUsersPageContext>, GetUsersPageStory>();
+        services.AddTransient<IStory<SetUserSceneStoryContext>, SetUserSceneStory>();
+        services.AddTransient<IStory<CreateCommentStoryContext>, CreateCommentStory>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {

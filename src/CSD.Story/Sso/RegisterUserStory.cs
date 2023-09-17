@@ -47,10 +47,12 @@ public class RegisterUserStory : IStory<UserDto, RegisterUserDto>
 
         _logger.LogInformation($"User with login {user.Entity.Login} was created");
         return new UserDto() {
+            Id = user.Entity.Id,
             Login = user.Entity.Login,
             FirstName = user.Entity.FirstName,
             LastName = user.Entity.LastName,
-            PaternalName = user.Entity.PaternalName
+            PaternalName = user.Entity.PaternalName,
+            Role = user.Entity.Role
         };
     }
 }
