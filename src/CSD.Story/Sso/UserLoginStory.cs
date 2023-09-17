@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace CSD.Story.Users;
+namespace CSD.Story.Sso;
 
 public class UserLoginStory : IStory<string, LoginDto>
 {

@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CSD.Story.Users;
+namespace CSD.Story.Sso;
 
 public class RegisterUserStory : IStory<UserDto, RegisterUserDto>
 {

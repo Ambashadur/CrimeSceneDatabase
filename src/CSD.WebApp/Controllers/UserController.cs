@@ -1,42 +1,24 @@
-﻿using CSD.Common;
-using CSD.Common.Attributes;
-using CSD.Domain.Dto.Users;
+﻿using CSD.Domain.Dto.Users;
 using CSD.Story;
+using CSD.Story.Users;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace CSD.WebApp.Controllers;
 
 [ApiController]
-[Route("sso/[controller]")]
-public class UserController : ControllerBase
+[Route("api/[controller]")]
+public class UserController :  ControllerBase
 {
-    private readonly IStory<string, LoginDto> _userLoginStory;
-    private readonly IStory<UserDto, RegisterUserDto> _registerUserStory;
-    private readonly IAuthService _authService;
+    private readonly IStory<PageResult<UserDto>, GetUsersPageContext> _getUsersPageStory;
 
     public UserController(
-        IStory<string, LoginDto> userStories,
-        IStory<UserDto, RegisterUserDto> registerUserStory,
-        IAuthService authService) {
-        _userLoginStory = userStories;
-        _registerUserStory = registerUserStory;
-        _authService = authService;
+        IStory<PageResult<UserDto>, GetUsersPageContext> getUsersPageStory) {
+        _getUsersPageStory = getUsersPageStory;
     }
 
-    [HttpPost("login")]
-    public Task<string> Login([FromBody] LoginDto loginDto) {
-        return _userLoginStory.ExecuteAsync(loginDto);
-    }
-
-    [HttpPost("logout")]
-    [Authorization]
-    public Task Logout() {
-        return _authService.SignOutAsync();
-    }
-
-    [HttpPost("register")]
-    public Task<UserDto> Register(RegisterUserDto registerUserDto) {
-        return _registerUserStory.ExecuteAsync(registerUserDto);
+    [HttpPost("page")]
+    public Task<PageResult<UserDto>> GetUsersPage([FromBody] GetUsersPageContext context) {
+        return _getUsersPageStory.ExecuteAsync(context);
     }
 }

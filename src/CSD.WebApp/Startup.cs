@@ -8,6 +8,7 @@ using CSD.Domain.Dto.Scenes;
 using CSD.Domain.Dto.Users;
 using CSD.Story;
 using CSD.Story.Scenes;
+using CSD.Story.Sso;
 using CSD.Story.Users;
 using CSD.WebApp.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -117,6 +118,7 @@ public class Startup
         services.AddTransient<IStory<SceneDto, CreateSceneStoryContext>, CreateSceneStory>();
         services.AddTransient<IStory<PageResult<SceneDto>, GetPageContext>, GetPageScenesStory>();
         services.AddTransient<IStory<GetSceneStoryResult, GetSceneStoryContext>, GetSceneStory>();
+        services.AddTransient<IStory<PageResult<UserDto>, GetUsersPageContext>, GetUsersPageStory>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
