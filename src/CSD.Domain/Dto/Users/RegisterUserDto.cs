@@ -1,5 +1,4 @@
 ﻿using CSD.Domain.Enums;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CSD.Domain.Dto.Users
 {
