@@ -1,8 +1,8 @@
-﻿using System.Threading.Tasks;
-using CSD.Domain.Dto.Users;
+﻿using CSD.Domain.Dto.Users;
 using CSD.Story;
 using CSD.Story.Users;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace CSD.WebApp.Controllers;
 
