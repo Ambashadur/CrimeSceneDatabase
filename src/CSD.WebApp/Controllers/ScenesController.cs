@@ -13,13 +13,13 @@ namespace CSD.WebApp.Controllers;
 [ApiController]
 [Authorization]
 [Route("api/[controller]")]
-public class SceneController : ControllerBase
+public class ScenesController : ControllerBase
 {
     private readonly IStory<SceneDto, CreateSceneStoryContext> _createSceneStory;
     private readonly IStory<PageResult<SceneDto>, GetPageContext> _getPageSceneStory;
     private readonly IStory<GetSceneStoryResult, GetSceneStoryContext> _getSceneStory;
 
-    public SceneController(
+    public ScenesController(
         IStory<SceneDto, CreateSceneStoryContext> createSceneStory,
         IStory<PageResult<SceneDto>, GetPageContext> getPageSceneStory,
         IStory<GetSceneStoryResult, GetSceneStoryContext> getSceneStory) {

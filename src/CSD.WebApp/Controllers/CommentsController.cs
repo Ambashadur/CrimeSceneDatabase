@@ -10,11 +10,11 @@ namespace CSD.WebApp.Controllers;
 [ApiController]
 [Authorization]
 [Route("api/[controller]")]
-public class CommentController : ControllerBase
+public class CommentsController : ControllerBase
 {
     private readonly IStory<CreateCommentStoryContext> _createCommentStory;
 
-    public CommentController(IStory<CreateCommentStoryContext> createCommentStory) {
+    public CommentsController(IStory<CreateCommentStoryContext> createCommentStory) {
         _createCommentStory = createCommentStory;
     }
 
