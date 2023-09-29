@@ -14,6 +14,8 @@ public class UserDto
 
     public long? SceneId { get; set; }
 
+    public string? SceneName { get; set; }
+
     public UserRole Role { get; set; }
 
     public string Login { get; set; } = string.Empty;

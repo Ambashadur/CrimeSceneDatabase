@@ -53,14 +53,6 @@ public class SceneController : ControllerBase
 
     [HttpGet("{id:long}")]
     public async Task<IActionResult> GetScene([FromRoute] long id) {
-        //var files = Directory.GetFiles(Path.Combine(SCENE_FOLDER, id.ToString()));
-
-        //if (files.Length == 0) return NotFound();
-
-        //var stream = new FileStream(files[0], FileMode.Open);
-        //var fileInfo = new FileInfo(files[0]);
-
-        //return File(stream, "image/" + fileInfo.Extension[1..], fileInfo.Name);
         var result = await _getSceneStory.ExecuteAsync(new GetSceneStoryContext() { Id = id });
         return File(result.Content, result.ContentType, result.Name);
     }

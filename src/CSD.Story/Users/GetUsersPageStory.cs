@@ -17,19 +17,21 @@ public class GetUsersPageStory : IStory<PageResult<UserDto>, GetUsersPageContext
     public Task<PageResult<UserDto>> ExecuteAsync(GetUsersPageContext context) {
         if (context.Page < 1) throw new ArgumentException("Page must be greater or equal than 1!");
 
-        var users = _dbContext.Users
-            .Where(user => user.Role == context.Role)
-            .Skip((context.Page - 1) * context.Count)
-            .Take(context.Count)
-            .Select(user => new UserDto() {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                PaternalName = user.PaternalName,
-                Login = user.Login,
-                Role = context.Role,
-                SceneId = user.SceneId
-            });
+        var users = (from user in _dbContext.Users
+                    join scene in _dbContext.Scenes
+                        on user.SceneId equals scene.Id into scenes
+                    from scene in scenes.DefaultIfEmpty()
+                    where user.Role == context.Role
+                    select new UserDto() {
+                        Id = user.Id,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        PaternalName = user.PaternalName,
+                        Login = user.Login,
+                        Role = user.Role,
+                        SceneId = user.SceneId,
+                        SceneName = scene.Name
+                    }).Skip((context.Page - 1) * context.Count).Take(context.Count);
 
         return Task.FromResult(new PageResult<UserDto>() {
             Page = context.Page,
