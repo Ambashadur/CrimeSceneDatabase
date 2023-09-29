@@ -8,11 +8,11 @@ namespace CSD.WebApp.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class UserController : ControllerBase {
+public class UsersController : ControllerBase {
     private readonly IStory<PageResult<UserDto>, GetUsersPageContext> _getUsersPageStory;
     private readonly IStory<SetUserSceneStoryContext> _setUserSceneStory;
 
-    public UserController(
+    public UsersController(
         IStory<PageResult<UserDto>, GetUsersPageContext> getUsersPageStory,
         IStory<SetUserSceneStoryContext> setUserSceneStory) {
         _getUsersPageStory = getUsersPageStory;
