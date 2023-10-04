@@ -1,4 +1,5 @@
-﻿using CSD.Domain.Dto.Users;
+﻿using CSD.Common.Attributes;
+using CSD.Domain.Dto.Users;
 using CSD.Story;
 using CSD.Story.Users;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 namespace CSD.WebApp.Controllers;
 
 [ApiController]
+[Authorization]
 [Route("api/[controller]")]
 public class UsersController : ControllerBase {
     private readonly IStory<PageResult<UserDto>, GetUsersPageContext> _getUsersPageStory;

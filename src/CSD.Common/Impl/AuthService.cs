@@ -1,5 +1,6 @@
 ﻿using CSD.Domain.Dto.Users;
 using Microsoft.AspNetCore.Http;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CSD.Common.Impl;
@@ -31,7 +32,7 @@ public class AuthService : IAuthService
 
     public async Task SignOutAsync() {
         if (_contextAccessor.HttpContext.Request.Headers.TryGetValue(HEADER_NAME, out var headerValue)) {
-            await _userTokenService.DeleteAsync(headerValue);
+            await _userTokenService.DeleteAsync(headerValue.ToString().Remove(0, 7));
         }
     }
 }

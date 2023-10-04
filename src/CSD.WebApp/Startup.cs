@@ -82,13 +82,12 @@ public class Startup
         services.AddSwaggerGen(c => {
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme {
                 Name = "Authorization",
-                Type = SecuritySchemeType.ApiKey,
+                Type = SecuritySchemeType.Http,
                 Scheme = "Bearer",
                 BearerFormat = "JWT",
                 In = ParameterLocation.Header,
                 Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n " +
-                  "Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\n" +
-                  "Example: \"Bearer 12345abcdef\""
+                  "Enter your token in the text input below.\r\n\r\n"
             });
 
             c.AddSecurityRequirement(new OpenApiSecurityRequirement()
@@ -96,7 +95,9 @@ public class Startup
                 {
                     new OpenApiSecurityScheme
                     {
-                        Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+                        Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" },
+                        In = ParameterLocation.Header,
+                        Name = "Bearer"
                     },
                     new string[] { }
                 }
