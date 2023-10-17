@@ -8,6 +8,5 @@ public class SetUserSceneStoryContext
     [JsonIgnore]
     public long UserId { get; set; }
 
-    [Required]
-    public long SceneId { get; set; }
+    public long? SceneId { get; set; }
 }

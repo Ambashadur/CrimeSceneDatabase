@@ -17,10 +17,14 @@ public class SetUserSceneStory : IStory<SetUserSceneStoryContext>
         var user = await _dbContext.Users.FirstOrDefaultAsync(user => user.Id == context.UserId)
             ?? throw new NotFoundException($"User with Id: {context.UserId} was not found!");
 
-        var scene = await _dbContext.Scenes.FirstOrDefaultAsync(scene => scene.Id == context.SceneId)
-            ?? throw new NotFoundException($"Scene with Id: {context.SceneId} was not found!");
+        if (context.SceneId.HasValue) {
+            var scene = await _dbContext.Scenes.FirstOrDefaultAsync(scene => scene.Id == context.SceneId)
+                ?? throw new NotFoundException($"Scene with Id: {context.SceneId} was not found!");
 
-        user.SceneId = scene.Id;
+            user.SceneId = scene.Id;
+        } else {
+            user.SceneId = null;
+        }
 
         _dbContext.SaveChanges();
     }
