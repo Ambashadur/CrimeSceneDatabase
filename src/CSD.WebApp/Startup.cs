@@ -58,7 +58,7 @@ public class Startup
         services.AddDbContext<CsdContext>((serviceProvider, options) => {
             var settings = serviceProvider.GetRequiredService<IDbSettings>();
 
-            options.UseNpgsql(settings.ConnectionString);
+            options.UseSqlite(settings.ConnectionString);
             options.LogTo(message => Console.WriteLine(message));
         });
 

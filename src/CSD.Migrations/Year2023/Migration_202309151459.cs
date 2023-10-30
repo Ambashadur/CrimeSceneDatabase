@@ -9,15 +9,15 @@ namespace CSD.Migrations.Year2023
         {
             Create.Table("scenes")
                 .WithColumn("id").AsInt64().NotNullable().PrimaryKey().Identity()
-                .WithColumn("create_date").AsDateTimeOffset().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
-                .WithColumn("update_date").AsDateTimeOffset().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
+                .WithColumn("create_date").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
+                .WithColumn("update_date").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
                 .WithColumn("name").AsString(256).NotNullable().Unique()
                 .WithColumn("filename").AsString(256).NotNullable();
 
             Create.Table("users")
                 .WithColumn("id").AsInt64().NotNullable().PrimaryKey().Identity()
-                .WithColumn("create_date").AsDateTimeOffset().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
-                .WithColumn("update_date").AsDateTimeOffset().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
+                .WithColumn("create_date").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
+                .WithColumn("update_date").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
                 .WithColumn("first_name").AsString(128).NotNullable()
                 .WithColumn("last_name").AsString(128).NotNullable()
                 .WithColumn("paternal_name").AsString(128).Nullable()
@@ -29,8 +29,8 @@ namespace CSD.Migrations.Year2023
 
             Create.Table("comments")
                 .WithColumn("id").AsInt64().NotNullable().PrimaryKey().Identity()
-                .WithColumn("create_date").AsDateTimeOffset().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
-                .WithColumn("update_date").AsDateTimeOffset().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
+                .WithColumn("create_date").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
+                .WithColumn("update_date").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
                 .WithColumn("user_id").AsInt64().NotNullable().ForeignKey("users", "id")
                 .WithColumn("scene_id").AsInt64().NotNullable().ForeignKey("scenes", "id")
                 .WithColumn("audio_filename").AsString(256).NotNullable()
