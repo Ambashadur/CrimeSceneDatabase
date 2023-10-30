@@ -14,11 +14,16 @@
     <PackageReference Include="FluentMigrator" Version="3.3.2" />
     <PackageReference Include="FluentMigrator.Runner" Version="3.3.2" />
     <PackageReference Include="FluentMigrator.Runner.Postgres" Version="3.3.2" />
+    <PackageReference Include="FluentMigrator.Runner.SQLite" Version="3.3.2" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.13" />
     <PackageReference Include="Npgsql" Version="7.0.6" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="..\..\shared\connectionStrings.Development.json" Link="Configs\connectionStrings.Development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\data\csd.db" Link="Data\csd.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

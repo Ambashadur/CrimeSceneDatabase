@@ -26,7 +26,7 @@ internal class Program
             .AddSingleton<IConfiguration>(config)
             .AddFluentMigratorCore()
             .ConfigureRunner(rb => rb
-                .AddPostgres10_0()
+                .AddSQLite()
                 .WithGlobalConnectionString(x => x.GetRequiredService<IConfiguration>().GetConnectionString(DATABASE_NAME))
                 .WithGlobalCommandTimeout(TimeSpan.FromMinutes(5))
                 .ScanIn(typeof(Program).Assembly).For.Migrations())

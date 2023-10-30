@@ -1,5 +1,5 @@
 {
   "ConnectionStrings": {
-    "CSD": "Host=localhost;Port=5432;Database=csd;Username=postgres;Password=postgres"
+    "CSD": "Data Source=Data/csd.db"
   }
 }
