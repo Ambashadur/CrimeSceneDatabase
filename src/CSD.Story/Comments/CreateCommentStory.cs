@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using CSD.Common;
 using CSD.Common.DataAccess;
 using CSD.Common.Exceptions;
 using CSD.Common.Files;
@@ -14,19 +15,22 @@ public class CreateCommentStory : IStory<CreateCommentStoryContext>
     private readonly CsdContext _dbContext;
     private readonly IFileStorage _fileStorage;
     private readonly IVoiceRecognitionService _voiceRecognitionService;
+    private readonly IUserContext _userContext;
 
     public CreateCommentStory(
         CsdContext dbContext,
         IFileStorage fileStorage,
-        IVoiceRecognitionService voiceRecognitionService) {
+        IVoiceRecognitionService voiceRecognitionService,
+        IUserContext userContext) {
         _dbContext = dbContext;
         _fileStorage = fileStorage;
         _voiceRecognitionService = voiceRecognitionService;
+        _userContext = userContext;
     }
 
     public async Task ExecuteAsync(CreateCommentStoryContext context) {
-        var user = await _dbContext.Users.FirstOrDefaultAsync(user => user.Id == context.UserId)
-            ?? throw new NotFoundException($"User with Id: {context.UserId} was not found!");
+        var user = await _dbContext.Users.FirstOrDefaultAsync(user => user.Id == _userContext.CurrentUser.Id)
+            ?? throw new NotFoundException($"User with Id: {_userContext.CurrentUser.Id} was not found!");
 
         var scene = await _dbContext.Scenes.FirstOrDefaultAsync(scene => scene.Id == context.SceneId)
             ?? throw new NotFoundException($"Scene with Id: {context.SceneId} was not found!");

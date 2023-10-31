@@ -1,8 +1,11 @@
 ﻿using CSD.Common;
 using CSD.Common.Attributes;
+using CSD.Common.DataAccess;
 using CSD.Domain.Dto.Users;
 using CSD.Story;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CSD.WebApp.Controllers;
@@ -13,15 +16,21 @@ public class SsoController : ControllerBase
 {
     private readonly IStory<string, LoginDto> _userLoginStory;
     private readonly IStory<UserDto, RegisterUserDto> _registerUserStory;
+    private readonly CsdContext _context;
     private readonly IAuthService _authService;
+    private readonly IUserContext _userContext;
 
     public SsoController(
         IStory<string, LoginDto> userStories,
         IStory<UserDto, RegisterUserDto> registerUserStory,
-        IAuthService authService) {
+        IAuthService authService,
+        IUserContext userContext,
+        CsdContext csdContext) {
         _userLoginStory = userStories;
         _registerUserStory = registerUserStory;
         _authService = authService;
+        _userContext = userContext;
+        _context = csdContext;
     }
 
     [HttpPost("login")]
@@ -36,7 +45,20 @@ public class SsoController : ControllerBase
     }
 
     [HttpPost("register")]
-    public Task<UserDto> Register(RegisterUserDto registerUserDto) {
+    public Task<UserDto> Register([FromBody] RegisterUserDto registerUserDto) {
         return _registerUserStory.ExecuteAsync(registerUserDto);
+    }
+
+    [HttpGet("about")]
+    [Authorization]
+    public async Task<UserDto> GetAboutInfo() {
+        var userDto = _userContext.CurrentUser;
+        var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == userDto.Id);
+        var scene = await _context.Scenes.FirstOrDefaultAsync(x => x.Id == user.SceneId);
+
+        userDto.SceneId = user?.SceneId;
+        userDto.SceneName= scene?.Name;
+
+        return userDto;
     }
 }

@@ -45,7 +45,12 @@ public class UserLoginStory : IStory<string, LoginDto>
             throw new ArgumentException("Incorrect password!");
         }
 
+        var scene = await _dbContext.Scenes.FirstOrDefaultAsync(scene => scene.Id == user.SceneId);
         var userDto = new UserDto() {
+            Id = user.Id,
+            Role = user.Role,
+            SceneId = user.SceneId,
+            SceneName = scene?.Name,
             Login = loginDto.Login,
             FirstName = user.FirstName,
             LastName = user.LastName,

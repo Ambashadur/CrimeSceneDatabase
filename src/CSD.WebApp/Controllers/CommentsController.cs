@@ -20,12 +20,10 @@ public class CommentsController : ControllerBase
 
     [HttpPost]
     public Task CreateComment(
-        [FromForm] long userId,
         [FromForm] long sceneId,
         IFormFile audioFile,
         IFormFile photoFile) {
-        return _createCommentStory.ExecuteAsync(new CreateCommentStoryContext() {
-            UserId = userId,
+        return _createCommentStory.ExecuteAsync(new CreateCommentStoryContext {
             SceneId = sceneId,
             AudioFileName = audioFile.FileName,
             AudioContentStream = audioFile.OpenReadStream(),
