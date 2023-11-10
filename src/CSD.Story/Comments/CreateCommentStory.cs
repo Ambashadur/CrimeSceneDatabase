@@ -38,10 +38,10 @@ public class CreateCommentStory : IStory<CreateCommentStoryContext>
         await _fileStorage.CreateAsync(context.PhotoContentStream, ContentType.Photo, context.PhotoFileName);
         await _fileStorage.CreateAsync(context.AudioContentStream, ContentType.Audio, context.AudioFileName);
         var text = await _voiceRecognitionService.GetTextFromAudioAsync(_fileStorage.GetPath(ContentType.Audio, context.AudioFileName));
-        var textFileName = $"comment_audio_recognition_{user.FirstName}_{user.LastName}_{scene.Name}_{DateTime.UtcNow.ToString("dd_MM_yyyy_hh_mm_ss")}.txt";
+        var textFileName = $"comment_audio_recognition_{user.FirstName}_{user.LastName}_{scene.Name}_{DateTime.UtcNow:dd_MM_yyyy_hh_mm_ss}.txt";
         await _fileStorage.CreateTextFileAsync(text, textFileName);
 
-        await _dbContext.Comments.AddAsync(new Comment() {
+        await _dbContext.Comments.AddAsync(new Comment {
             CreateDate = DateTimeOffset.UtcNow,
             UpdateDate= DateTimeOffset.UtcNow,
             SceneId = scene.Id,

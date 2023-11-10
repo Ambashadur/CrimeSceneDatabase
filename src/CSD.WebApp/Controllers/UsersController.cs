@@ -21,8 +21,8 @@ public class UsersController : ControllerBase {
         _setUserSceneStory = setUserSceneStory;
     }
 
-    [HttpPost("page")]
-    public Task<PageResult<UserDto>> GetUsersPage([FromBody] GetUsersPageContext context) {
+    [HttpGet("page")]
+    public Task<PageResult<UserDto>> GetUsersPage([FromQuery] GetUsersPageContext context) {
         return _getUsersPageStory.ExecuteAsync(context);
     }
 

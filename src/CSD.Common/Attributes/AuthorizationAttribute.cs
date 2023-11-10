@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CSD.Common.Attributes;
@@ -42,9 +41,5 @@ public class AuthorizationAttribute : Attribute, IAsyncAuthorizationFilter
                 return;
             }
         }
-
-        var configuration = context.HttpContext.RequestServices.GetRequiredService<IConfiguration>();
-
-        return;
     }
 }

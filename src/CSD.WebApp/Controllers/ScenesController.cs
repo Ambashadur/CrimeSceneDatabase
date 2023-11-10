@@ -16,12 +16,12 @@ public class ScenesController : ControllerBase
 {
     private readonly IStory<SceneDto, CreateSceneStoryContext> _createSceneStory;
     private readonly IStory<PageResult<SceneDto>, GetPageContext> _getPageSceneStory;
-    private readonly IStory<GetSceneStoryResult, GetSceneStoryContext> _getSceneStory;
+    private readonly IStory<MediaResult, GetSceneStoryContext> _getSceneStory;
 
     public ScenesController(
         IStory<SceneDto, CreateSceneStoryContext> createSceneStory,
         IStory<PageResult<SceneDto>, GetPageContext> getPageSceneStory,
-        IStory<GetSceneStoryResult, GetSceneStoryContext> getSceneStory) {
+        IStory<MediaResult, GetSceneStoryContext> getSceneStory) {
         _createSceneStory = createSceneStory;
         _getPageSceneStory = getPageSceneStory;
         _getSceneStory = getSceneStory;
@@ -54,6 +54,7 @@ public class ScenesController : ControllerBase
     [HttpGet("{id:long}")]
     public async Task<IActionResult> GetScene([FromRoute] long id) {
         var result = await _getSceneStory.ExecuteAsync(new GetSceneStoryContext() { Id = id });
+
         return File(result.Content, result.ContentType, result.Name);
     }
 }

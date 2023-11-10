@@ -7,8 +7,5 @@ public abstract class BaseException : Exception
 {
     public abstract HttpStatusCode StatusCode { get; }
 
-    public BaseException(string message) : base(message) {
-
-    }
-
+    public BaseException(string message) : base(message) { }
 }

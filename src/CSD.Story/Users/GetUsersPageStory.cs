@@ -22,7 +22,7 @@ public class GetUsersPageStory : IStory<PageResult<UserDto>, GetUsersPageContext
                         on user.SceneId equals scene.Id into scenes
                     from scene in scenes.DefaultIfEmpty()
                     where user.Role == context.Role
-                    select new UserDto() {
+                    select new UserDto {
                         Id = user.Id,
                         FirstName = user.FirstName,
                         LastName = user.LastName,
@@ -33,9 +33,10 @@ public class GetUsersPageStory : IStory<PageResult<UserDto>, GetUsersPageContext
                         SceneName = scene.Name
                     }).Skip((context.Page - 1) * context.Count).Take(context.Count);
 
-        return Task.FromResult(new PageResult<UserDto>() {
+        return Task.FromResult(new PageResult<UserDto> {
             Page = context.Page,
             Count = users.Count(),
+            TotalCount = _dbContext.Users.Where(user => user.Role == context.Role).Count(),
             Data = users
         });
     }

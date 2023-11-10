@@ -11,5 +11,7 @@ public interface IFileStorage
 
     Task<FileStream> GetContentAsync(ContentType contentType, string name);
 
+    string GetTextFromFile(string name);
+
     string GetPath(ContentType contentType, string filename);
 }

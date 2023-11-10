@@ -20,7 +20,6 @@ public class FileStorage : IFileStorage
 
     public async Task CreateAsync(Stream content, ContentType contentType, string name) {
         var pathToFile = GetPath(contentType, name);
-
         if (File.Exists(pathToFile)) {
             var fileExtenstion = Path.GetExtension(pathToFile);
             pathToFile = pathToFile.Insert(pathToFile.Length - fileExtenstion.Length - 1, DateTime.UtcNow.ToString("dd_MM_yyyy_hh_mm_ss"));
@@ -34,6 +33,7 @@ public class FileStorage : IFileStorage
 
     public Task<FileStream> GetContentAsync(ContentType contentType, string name) {
         var pathToFile = GetPath(contentType, name);
+        if (!File.Exists(pathToFile)) throw new ArgumentException("File not exists!");
 
         var fileStream = new FileStream(pathToFile, FileMode.Open);
         return Task.FromResult(fileStream);
@@ -41,13 +41,19 @@ public class FileStorage : IFileStorage
 
     public Task CreateTextFileAsync(string text, string name) {
         var pathToFile = GetPath(ContentType.Text, name);
-
         if (File.Exists(pathToFile)) {
             var fileExtenstion = Path.GetExtension(pathToFile);
             pathToFile = pathToFile.Insert(pathToFile.Length - fileExtenstion.Length - 1, DateTime.UtcNow.ToString("dd_MM_yyyy_hh_mm_ss"));
         }
 
         return File.WriteAllTextAsync(pathToFile, text);
+    }
+
+    public string GetTextFromFile(string name) {
+        var pathToFile = GetPath(ContentType.Text, name);
+        if (!File.Exists(pathToFile)) throw new ArgumentException("File not exists!");
+
+        return File.ReadAllText(pathToFile);
     }
 
     public string GetPath(ContentType contentType, string name) => contentType switch {

@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSD.Common", "src\CSD.Commo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSD.Story", "src\CSD.Story\CSD.Story.csproj", "{ADE8330F-279A-4CF9-A957-9422BCECEEF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSD.Migrations", "src\CSD.Migrations\CSD.Migrations.csproj", "{A9C4E30C-5DA0-46A7-8EB2-4F2C3488DD1B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{ADE8330F-279A-4CF9-A957-9422BCECEEF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADE8330F-279A-4CF9-A957-9422BCECEEF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADE8330F-279A-4CF9-A957-9422BCECEEF5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A9C4E30C-5DA0-46A7-8EB2-4F2C3488DD1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A9C4E30C-5DA0-46A7-8EB2-4F2C3488DD1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A9C4E30C-5DA0-46A7-8EB2-4F2C3488DD1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A9C4E30C-5DA0-46A7-8EB2-4F2C3488DD1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
