@@ -1,5 +1,6 @@
 ﻿using CSD.Common.Attributes;
 using CSD.Domain.Dto.Comments;
+using CSD.Domain.Enums;
 using CSD.Story;
 using CSD.Story.Comments;
 using Microsoft.AspNetCore.Http;
@@ -44,7 +45,7 @@ public class CommentsController : ControllerBase
     }
 
     [HttpGet("page")]
-    [Authorization]
+    [Authorization(Role = UserRole.Admin)]
     public Task<PageResult<CommentDto>> GetCommentPage([FromQuery] GetCommentsPageContext context) {
         return _getCommentsPageStory.ExecuteAsync(context);
     }

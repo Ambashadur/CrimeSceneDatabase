@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using CSD.Domain.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +10,8 @@ namespace CSD.Common.Attributes;
 
 public class AuthorizationAttribute : Attribute, IAsyncAuthorizationFilter
 {
+    public UserRole Role = UserRole.Default;
+
     private const string AUTH_HEADER = "Authorization";
 
     public async Task OnAuthorizationAsync(AuthorizationFilterContext context) {
@@ -24,6 +27,11 @@ public class AuthorizationAttribute : Attribute, IAsyncAuthorizationFilter
         var userDto = await userTokenService.GetAsync(userToken);
 
         if (userDto is null) {
+            context.Result = new UnauthorizedResult();
+            return;
+        }
+
+        if ((int)userDto.Role < (int)Role) {
             context.Result = new UnauthorizedResult();
             return;
         }

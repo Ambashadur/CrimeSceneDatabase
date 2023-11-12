@@ -1,9 +1,10 @@
-﻿using CSD.Common.Attributes;
+﻿using System.Threading.Tasks;
+using CSD.Common.Attributes;
 using CSD.Domain.Dto.Users;
+using CSD.Domain.Enums;
 using CSD.Story;
 using CSD.Story.Users;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace CSD.WebApp.Controllers;
 
@@ -22,11 +23,13 @@ public class UsersController : ControllerBase {
     }
 
     [HttpGet("page")]
+    [Authorization(Role = UserRole.Admin)]
     public Task<PageResult<UserDto>> GetUsersPage([FromQuery] GetUsersPageContext context) {
         return _getUsersPageStory.ExecuteAsync(context);
     }
 
     [HttpPost("{id:long}/scene")]
+    [Authorization(Role = UserRole.Admin)]
     public Task SetUserScene([FromRoute] long id, [FromBody] SetUserSceneStoryContext context) {
         context.UserId = id;
         return _setUserSceneStory.ExecuteAsync(context);

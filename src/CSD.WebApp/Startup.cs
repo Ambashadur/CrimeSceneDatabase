@@ -53,8 +53,11 @@ public class Startup
 
         services.AddResponseCompression(x => x.EnableForHttps = true);
         services.AddMvc();
-        services.AddRouting(options => options.LowercaseUrls = true);
         services.AddEndpointsApiExplorer();
+        services.AddRouting(options => {
+            options.LowercaseUrls = true;
+            options.LowercaseQueryStrings = true;
+        });
 
         services.AddDbContext<CsdContext>((serviceProvider, options) => {
             var settings = serviceProvider.GetRequiredService<IDbSettings>();

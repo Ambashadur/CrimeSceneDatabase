@@ -2,6 +2,7 @@
 using CSD.Common.DataAccess;
 using CSD.Domain.Dto;
 using CSD.Domain.Dto.Users;
+using CSD.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -33,6 +34,11 @@ public class UserLoginStory : IStory<string, LoginDto>
         if (user is null) {
             _logger.LogError($"User with given login: {loginDto.Login} not found");
             throw new ArgumentException("User not found!");
+        }
+
+        if (loginDto.IsAdmin && user.Role != UserRole.Admin) {
+            _logger.LogError("User {0} has incorrect role!", user.Login);
+            throw new ArgumentException("Incorrect role!");
         }
 
         var hashedPassword = new HashedPassword() {
