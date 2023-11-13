@@ -17,16 +17,19 @@ public class CommentsController : ControllerBase
     private readonly IStory<MediaResult, GetAudioFromCommentStoryContext> _getAudioStory;
     private readonly IStory<MediaResult, GetPhotoFromCommentStoryContext> _getPhotoStory;
     private readonly IStory<PageResult<CommentDto>, GetCommentsPageContext> _getCommentsPageStory;
+    private readonly IStory<DeleteCommentStoryContext> _deleteCommentStory;
 
     public CommentsController(
         IStory<CreateCommentStoryContext> createCommentStory,
         IStory<MediaResult, GetAudioFromCommentStoryContext> getAudioStory,
         IStory<PageResult<CommentDto>, GetCommentsPageContext> getCommentsPageStory,
-        IStory<MediaResult, GetPhotoFromCommentStoryContext> getPhotoStory) {
+        IStory<MediaResult, GetPhotoFromCommentStoryContext> getPhotoStory,
+        IStory<DeleteCommentStoryContext> deleteCommentStory) {
         _createCommentStory = createCommentStory;
         _getAudioStory = getAudioStory;
         _getCommentsPageStory = getCommentsPageStory;
         _getPhotoStory = getPhotoStory;
+        _deleteCommentStory = deleteCommentStory;
     }
 
     [HttpPost]
@@ -61,5 +64,11 @@ public class CommentsController : ControllerBase
     public async Task<IActionResult> GetPhoto([FromRoute] long id, [FromQuery] string hash) {
         var result = await _getPhotoStory.ExecuteAsync(new() { Id = id, Hash = hash });
         return File(result.Content, result.ContentType, result.Name);
+    }
+
+    [HttpDelete("{Id}")]
+    [Authorization(Role = UserRole.Admin)]
+    public async Task DeleteComment([FromRoute] DeleteCommentStoryContext context) {
+        await _deleteCommentStory.ExecuteAsync(context);
     }
 }

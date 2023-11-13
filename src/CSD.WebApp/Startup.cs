@@ -133,6 +133,7 @@ public class Startup
         services.AddTransient<IStory<PageResult<UserDto>, GetUsersPageContext>, GetUsersPageStory>();
         services.AddTransient<IStory<SetUserSceneStoryContext>, SetUserSceneStory>();
         services.AddTransient<IStory<CreateCommentStoryContext>, CreateCommentStory>();
+        services.AddTransient<IStory<DeleteCommentStoryContext>, DeleteCommentStory>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
