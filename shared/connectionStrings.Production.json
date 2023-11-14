@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "CSD": "Data Source=csd.db"
+  }
+}

@@ -19,7 +19,7 @@
       "launchUrl": "swagger",
       "workingDirectory": "bin/Debug/net7.0",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_ENVIRONMENT": "Production",
         "urls": "http://+:5197"
       },
       "dotnetRunMessages": true,

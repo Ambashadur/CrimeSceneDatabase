@@ -9,6 +9,9 @@
     <Content Include="..\..\shared\connectionStrings.Development.json" Link="Configs\connectionStrings.Development.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\..\shared\connectionStrings.Production.json" Link="Configs\connectionStrings.Production.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
