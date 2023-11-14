@@ -16,14 +16,17 @@ public class ScenesController : ControllerBase
 {
     private readonly IStory<SceneDto, CreateSceneStoryContext> _createSceneStory;
     private readonly IStory<PageResult<SceneDto>, GetPageContext> _getPageSceneStory;
+    private readonly IStory<MediaResult, GetScenePreviewStoryContext> _getScenePreviewStory;
     private readonly IStory<MediaResult, GetSceneStoryContext> _getSceneStory;
 
     public ScenesController(
         IStory<SceneDto, CreateSceneStoryContext> createSceneStory,
         IStory<PageResult<SceneDto>, GetPageContext> getPageSceneStory,
+        IStory<MediaResult, GetScenePreviewStoryContext> getScenePreviewStory,
         IStory<MediaResult, GetSceneStoryContext> getSceneStory) {
         _createSceneStory = createSceneStory;
         _getPageSceneStory = getPageSceneStory;
+        _getScenePreviewStory = getScenePreviewStory;
         _getSceneStory = getSceneStory;
     }
 
@@ -53,11 +56,16 @@ public class ScenesController : ControllerBase
         return _getPageSceneStory.ExecuteAsync(context);
     }
 
-    [HttpGet("{id:long}")]
+    [HttpGet("{Id:long}")]
     [Authorization]
     public async Task<IActionResult> GetScene([FromRoute] long id) {
-        var result = await _getSceneStory.ExecuteAsync(new GetSceneStoryContext() { Id = id });
+        var result = await _getSceneStory.ExecuteAsync(new() { Id = id });
+        return File(result.Content, result.ContentType, result.Name);
+    }
 
+    [HttpGet("{id:long}/preview")]
+    public async Task<IActionResult> GetScenePreview([FromRoute] long id, [FromQuery] string hash) {
+        var result = await _getScenePreviewStory.ExecuteAsync(new() { Id = id, Hash = hash });
         return File(result.Content, result.ContentType, result.Name);
     }
 }

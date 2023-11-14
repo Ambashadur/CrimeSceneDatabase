@@ -16,6 +16,8 @@ public class UserDto
 
     public string? SceneName { get; set; }
 
+    public string? SceneFileLink { get; set; }
+
     public UserRole Role { get; set; }
 
     public string Login { get; set; } = string.Empty;

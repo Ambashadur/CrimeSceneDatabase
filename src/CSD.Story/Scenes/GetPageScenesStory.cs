@@ -1,4 +1,5 @@
 ﻿using CSD.Common.DataAccess;
+using CSD.Common.Helpers;
 using CSD.Domain.Dto.Scenes;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +20,8 @@ public class GetPageScenesStory : IStory<PageResult<SceneDto>, GetPageContext>
             .Take(context.Count)
             .Select(scene =>  new SceneDto() {
                 Id = scene.Id,
-                Name = scene.Name
+                Name = scene.Name,
+                Link = string.Format("api/scenes/{0}/preview?hash={1}", scene.Id, HashHelper.ComputeHash(scene.FileName))
             });
 
         var pageResult = new PageResult<SceneDto>() {

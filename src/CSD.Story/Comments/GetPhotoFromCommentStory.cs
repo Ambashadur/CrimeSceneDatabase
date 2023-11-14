@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CSD.Story.Comments;
 
-public class GetPhotoFromCommentStory : IStory<MediaResult, GetPhotoFromCommentStoryContext>
+public class GetPhotoFromCommentStory : IStory<MediaResult, GetPhotFromCommentStoryContext>
 {
     private readonly CsdContext _context;
     private readonly IFileStorage _fileStorage;
@@ -19,7 +19,7 @@ public class GetPhotoFromCommentStory : IStory<MediaResult, GetPhotoFromCommentS
         _fileStorage = fileStorage;
     }
 
-    public async Task<MediaResult> ExecuteAsync(GetPhotoFromCommentStoryContext context) {
+    public async Task<MediaResult> ExecuteAsync(GetPhotFromCommentStoryContext context) {
         var comment = await _context.Comments.FirstOrDefaultAsync(comment => comment.Id == context.Id)
             ?? throw new NotFoundException($"Comment with Id: {context.Id} not found!");
 

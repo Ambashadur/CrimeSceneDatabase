@@ -6,5 +6,6 @@ public enum ContentType
     Scene = 1,
     Audio = 2,
     Text = 3,
-    Photo = 4
+    Photo = 4,
+    CompressedPhoto = 5
 }

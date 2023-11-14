@@ -7,12 +7,14 @@ namespace CSD.Common.Files.Impl;
 public class FileStorage : IFileStorage
 {
     private const string PHOTO_FOLDER = "./photos";
+    private const string COMPRESSED_PHOTO_FOLDER = "./compressed_photos";
     private const string AUDIO_FOLDER = "./audios";
     private const string SCENE_FOLDER = "./scenes";
     private const string TEXT_FOLDER = "./texts";
 
     public FileStorage() {
         if (!Directory.Exists(PHOTO_FOLDER)) Directory.CreateDirectory(PHOTO_FOLDER);
+        if (!Directory.Exists(COMPRESSED_PHOTO_FOLDER)) Directory.CreateDirectory(COMPRESSED_PHOTO_FOLDER);
         if (!Directory.Exists(SCENE_FOLDER)) Directory.CreateDirectory(SCENE_FOLDER);
         if (!Directory.Exists(AUDIO_FOLDER)) Directory.CreateDirectory(AUDIO_FOLDER);
         if (!Directory.Exists(TEXT_FOLDER)) Directory.CreateDirectory(TEXT_FOLDER);
@@ -58,6 +60,7 @@ public class FileStorage : IFileStorage
 
     public string GetPath(ContentType contentType, string name) => contentType switch {
         ContentType.Photo => Path.Combine(PHOTO_FOLDER, name),
+        ContentType.CompressedPhoto => Path.Combine(COMPRESSED_PHOTO_FOLDER, name),
         ContentType.Scene => Path.Combine(SCENE_FOLDER, name),
         ContentType.Audio => Path.Combine(AUDIO_FOLDER, name),
         ContentType.Text => Path.Combine(TEXT_FOLDER, name),

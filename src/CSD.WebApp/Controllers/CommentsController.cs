@@ -15,7 +15,7 @@ public class CommentsController : ControllerBase
 {
     private readonly IStory<CreateCommentStoryContext> _createCommentStory;
     private readonly IStory<MediaResult, GetAudioFromCommentStoryContext> _getAudioStory;
-    private readonly IStory<MediaResult, GetPhotoFromCommentStoryContext> _getPhotoStory;
+    private readonly IStory<MediaResult, GetPhotFromCommentStoryContext> _getPhotoStory;
     private readonly IStory<PageResult<CommentDto>, GetCommentsPageContext> _getCommentsPageStory;
     private readonly IStory<DeleteCommentStoryContext> _deleteCommentStory;
 
@@ -23,7 +23,7 @@ public class CommentsController : ControllerBase
         IStory<CreateCommentStoryContext> createCommentStory,
         IStory<MediaResult, GetAudioFromCommentStoryContext> getAudioStory,
         IStory<PageResult<CommentDto>, GetCommentsPageContext> getCommentsPageStory,
-        IStory<MediaResult, GetPhotoFromCommentStoryContext> getPhotoStory,
+        IStory<MediaResult, GetPhotFromCommentStoryContext> getPhotoStory,
         IStory<DeleteCommentStoryContext> deleteCommentStory) {
         _createCommentStory = createCommentStory;
         _getAudioStory = getAudioStory;

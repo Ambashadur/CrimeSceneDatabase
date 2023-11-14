@@ -1,4 +1,5 @@
 ﻿using CSD.Common.DataAccess;
+using CSD.Common.Helpers;
 using CSD.Domain.Dto.Users;
 using System;
 using System.Linq;
@@ -30,14 +31,15 @@ public class GetUsersPageStory : IStory<PageResult<UserDto>, GetUsersPageContext
                         Login = user.Login,
                         Role = user.Role,
                         SceneId = user.SceneId,
-                        SceneName = scene.Name
+                        SceneName = scene.Name,
+                        SceneFileLink = scene == null ? string.Empty : string.Format("api/scenes/{0}/preview?hash={1}", scene.Id, HashHelper.ComputeHash(scene.FileName))
                     }).Skip((context.Page - 1) * context.Count).Take(context.Count);
 
         return Task.FromResult(new PageResult<UserDto> {
             Page = context.Page,
             Count = users.Count(),
             TotalCount = _dbContext.Users.Where(user => user.Role == context.Role).Count(),
-            Data = users
+            Data = users ?? Enumerable.Empty<UserDto>()
         });
     }
 }

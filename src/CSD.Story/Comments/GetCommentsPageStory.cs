@@ -38,7 +38,7 @@ public class GetCommentsPageStory : IStory<PageResult<CommentDto>, GetCommentsPa
             Page = context.Page,
             Count = comments.Count(),
             TotalCount = _context.Comments.Where(comment => comment.UserId == context.UserId).Count(),
-            Data = comments
+            Data = comments ?? Enumerable.Empty<CommentDto>()
         });
     }
 }

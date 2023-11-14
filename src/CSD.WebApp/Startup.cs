@@ -18,6 +18,7 @@ using CSD.WebApp.Middlewares;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -121,19 +122,21 @@ public class Startup
         services.AddScoped<IJwtHandler, JwtHandler>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IUserContext, UserContext>();
+        services.AddScoped<IPhotoComressionService, PhotoCompressionService>();
 
         services.AddTransient<IStory<string, LoginDto>, UserLoginStory>();
         services.AddTransient<IStory<UserDto, RegisterUserDto>, RegisterUserStory>();
         services.AddTransient<IStory<SceneDto, CreateSceneStoryContext>, CreateSceneStory>();
         services.AddTransient<IStory<PageResult<SceneDto>, GetPageContext>, GetPageScenesStory>();
-        services.AddTransient<IStory<MediaResult, GetSceneStoryContext>, GetSceneStory>();
+        services.AddTransient<IStory<MediaResult, GetScenePreviewStoryContext>, GetScenePreviewStory>();
         services.AddTransient<IStory<MediaResult, GetAudioFromCommentStoryContext>, GetAudioFromCommentStory>();
         services.AddTransient<IStory<PageResult<CommentDto>, GetCommentsPageContext>, GetCommentsPageStory>();
-        services.AddTransient<IStory<MediaResult, GetPhotoFromCommentStoryContext>, GetPhotoFromCommentStory>();
+        services.AddTransient<IStory<MediaResult, GetPhotFromCommentStoryContext>, GetPhotoFromCommentStory>();
         services.AddTransient<IStory<PageResult<UserDto>, GetUsersPageContext>, GetUsersPageStory>();
         services.AddTransient<IStory<SetUserSceneStoryContext>, SetUserSceneStory>();
         services.AddTransient<IStory<CreateCommentStoryContext>, CreateCommentStory>();
         services.AddTransient<IStory<DeleteCommentStoryContext>, DeleteCommentStory>();
+        services.AddTransient<IStory<MediaResult, GetSceneStoryContext>, GetSceneStory>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
@@ -161,6 +164,7 @@ public class Startup
         app.UseHttpLogging();
         app.UseMiddleware<AppExceptionMiddleware>();
         app.UseAuthorization();
+        app.Map("/ping", appBuilder => appBuilder.Run(async context => await context.Response.WriteAsync("ping")));
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();

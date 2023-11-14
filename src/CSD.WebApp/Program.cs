@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace CSD.WebApp;
@@ -36,6 +37,9 @@ public static class HostBuilderExtension
 
         hostBuilder.ConfigureWebHostDefaults(webBuilder => {
             webBuilder.UseStartup<TStartup>();
+            //.UseKestrel(options => {
+            //    options.Listen(new IPAddress(new byte[] { 192, 168, 3, 8 }), 5197);
+            //});
         });
 
         return hostBuilder;

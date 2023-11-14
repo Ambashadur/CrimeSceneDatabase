@@ -2,6 +2,7 @@
 using CSD.Common;
 using CSD.Common.Attributes;
 using CSD.Common.DataAccess;
+using CSD.Common.Helpers;
 using CSD.Domain.Dto.Users;
 using CSD.Story;
 using Microsoft.AspNetCore.Mvc;
@@ -57,6 +58,9 @@ public class SsoController : ControllerBase
 
         userDto.SceneId = user?.SceneId;
         userDto.SceneName= scene?.Name;
+        userDto.SceneFileLink = scene is null
+            ? string.Empty
+            : string.Format("api/scenes/{0}/preview?hash={1}", scene.Id, HashHelper.ComputeHash(scene.FileName));
 
         return userDto;
     }
