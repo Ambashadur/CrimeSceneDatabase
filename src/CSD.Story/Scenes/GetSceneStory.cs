@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using CSD.Common.DataAccess;
 using CSD.Common.Exceptions;
 using CSD.Common.Files;
+using CSD.Contracts;
 using Microsoft.EntityFrameworkCore;
 
 namespace CSD.Story.Scenes;

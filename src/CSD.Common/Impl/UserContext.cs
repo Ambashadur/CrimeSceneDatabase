@@ -1,5 +1,5 @@
 ﻿using System;
-using CSD.Domain.Dto.Users;
+using CSD.Contracts.Users;
 
 namespace CSD.Common.Impl;
 

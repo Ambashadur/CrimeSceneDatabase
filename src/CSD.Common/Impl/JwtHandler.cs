@@ -6,7 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using CSD.Common.Contsants;
 using CSD.Common.Settings;
-using CSD.Domain.Dto.Users;
+using CSD.Contracts.Users;
 using Microsoft.IdentityModel.Tokens;
 
 namespace CSD.Common.Impl;

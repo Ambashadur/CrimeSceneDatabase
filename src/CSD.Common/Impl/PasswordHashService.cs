@@ -1,7 +1,7 @@
-﻿using CSD.Domain.Dto;
-using System;
+﻿using System;
 using System.Linq;
 using System.Security.Cryptography;
+using CSD.Contracts;
 
 namespace CSD.Common.Impl;
 

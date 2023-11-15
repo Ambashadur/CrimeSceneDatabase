@@ -1,4 +1,7 @@
-﻿using CSD.Common;
+﻿using System;
+using System.Text;
+using System.Text.Json.Serialization;
+using CSD.Common;
 using CSD.Common.DataAccess;
 using CSD.Common.Files;
 using CSD.Common.Files.Impl;
@@ -6,9 +9,11 @@ using CSD.Common.Impl;
 using CSD.Common.Settings;
 using CSD.Common.VoiceRecognition;
 using CSD.Common.VoiceRecognition.Impl;
-using CSD.Domain.Dto.Comments;
-using CSD.Domain.Dto.Scenes;
-using CSD.Domain.Dto.Users;
+using CSD.Contracts;
+using CSD.Contracts.Comments;
+using CSD.Contracts.Scenes;
+using CSD.Contracts.Users;
+using CSD.DContracts.Users;
 using CSD.Story;
 using CSD.Story.Comments;
 using CSD.Story.Scenes;
@@ -26,9 +31,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Text;
-using System.Text.Json.Serialization;
 
 namespace CSD.WebApp;
 
@@ -51,6 +53,9 @@ public class Startup
         services
             .AddControllers()
             .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+
+        services.AddControllersWithViews();
+        services.AddRazorPages();
 
         services.AddResponseCompression(x => x.EnableForHttps = true);
         services.AddMvc();
@@ -127,7 +132,7 @@ public class Startup
         services.AddTransient<IStory<string, LoginDto>, UserLoginStory>();
         services.AddTransient<IStory<UserDto, RegisterUserDto>, RegisterUserStory>();
         services.AddTransient<IStory<SceneDto, CreateSceneStoryContext>, CreateSceneStory>();
-        services.AddTransient<IStory<PageResult<SceneDto>, GetPageContext>, GetPageScenesStory>();
+        services.AddTransient<IStory<PageResult<SceneDto>, PageContext>, GetPageScenesStory>();
         services.AddTransient<IStory<MediaResult, GetScenePreviewStoryContext>, GetScenePreviewStory>();
         services.AddTransient<IStory<MediaResult, GetAudioFromCommentStoryContext>, GetAudioFromCommentStory>();
         services.AddTransient<IStory<PageResult<CommentDto>, GetCommentsPageContext>, GetCommentsPageStory>();
@@ -157,17 +162,22 @@ public class Startup
             app.UseSwaggerUI();
         }
 
+        app.UseBlazorFrameworkFiles();
+
         app.UseRouting();
 
         app.UseResponseCompression();
         app.UseHttpsRedirection();
         app.UseHttpLogging();
+        app.UseStaticFiles();
         app.UseMiddleware<AppExceptionMiddleware>();
         app.UseAuthorization();
         app.Map("/ping", appBuilder => appBuilder.Run(async context => await context.Response.WriteAsync("ping")));
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
+            endpoints.MapRazorPages();
+            endpoints.MapFallbackToFile("index.html");
         });
     }
 }

@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using CSD.Common.Attributes;
-using CSD.Domain.Dto.Scenes;
+using CSD.Contracts;
+using CSD.Contracts.Scenes;
 using CSD.Domain.Enums;
 using CSD.Story;
 using CSD.Story.Scenes;
@@ -15,13 +16,13 @@ namespace CSD.WebApp.Controllers;
 public class ScenesController : ControllerBase
 {
     private readonly IStory<SceneDto, CreateSceneStoryContext> _createSceneStory;
-    private readonly IStory<PageResult<SceneDto>, GetPageContext> _getPageSceneStory;
+    private readonly IStory<PageResult<SceneDto>, PageContext> _getPageSceneStory;
     private readonly IStory<MediaResult, GetScenePreviewStoryContext> _getScenePreviewStory;
     private readonly IStory<MediaResult, GetSceneStoryContext> _getSceneStory;
 
     public ScenesController(
         IStory<SceneDto, CreateSceneStoryContext> createSceneStory,
-        IStory<PageResult<SceneDto>, GetPageContext> getPageSceneStory,
+        IStory<PageResult<SceneDto>, PageContext> getPageSceneStory,
         IStory<MediaResult, GetScenePreviewStoryContext> getScenePreviewStory,
         IStory<MediaResult, GetSceneStoryContext> getSceneStory) {
         _createSceneStory = createSceneStory;
@@ -52,7 +53,7 @@ public class ScenesController : ControllerBase
 
     [HttpGet("page")]
     [Authorization(Role = UserRole.Admin)]
-    public Task<PageResult<SceneDto>> GetScenePage([FromQuery] GetPageContext context) {
+    public Task<PageResult<SceneDto>> GetScenePage([FromQuery] PageContext context) {
         return _getPageSceneStory.ExecuteAsync(context);
     }
 

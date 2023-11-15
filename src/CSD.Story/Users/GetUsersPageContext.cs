@@ -1,8 +1,9 @@
-﻿using CSD.Domain.Enums;
+﻿using CSD.Contracts;
+using CSD.Domain.Enums;
 
 namespace CSD.Story.Users;
 
-public class GetUsersPageContext : GetPageContext
+public class GetUsersPageContext : PageContext
 {
     public UserRole Role { get; set; }
 }

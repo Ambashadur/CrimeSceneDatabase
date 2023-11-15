@@ -1,4 +1,4 @@
-﻿namespace CSD.Domain.Dto.Comments;
+﻿namespace CSD.Contracts.Comments;
 
 public class CommentDto {
     public long Id { get; set; }

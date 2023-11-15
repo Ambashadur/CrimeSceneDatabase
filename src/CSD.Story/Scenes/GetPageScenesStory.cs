@@ -1,12 +1,13 @@
-﻿using CSD.Common.DataAccess;
-using CSD.Common.Helpers;
-using CSD.Domain.Dto.Scenes;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using CSD.Common.DataAccess;
+using CSD.Common.Helpers;
+using CSD.Contracts;
+using CSD.Contracts.Scenes;
 
 namespace CSD.Story.Scenes;
 
-public class GetPageScenesStory : IStory<PageResult<SceneDto>, GetPageContext>
+public class GetPageScenesStory : IStory<PageResult<SceneDto>, PageContext>
 {
     private readonly CsdContext _dbContext;
 
@@ -14,7 +15,7 @@ public class GetPageScenesStory : IStory<PageResult<SceneDto>, GetPageContext>
         _dbContext = dbContext;
     }
 
-    public Task<PageResult<SceneDto>> ExecuteAsync(GetPageContext context) {
+    public Task<PageResult<SceneDto>> ExecuteAsync(PageContext context) {
         var scenes = _dbContext.Scenes
             .Skip((context.Page - 1) * context.Count)
             .Take(context.Count)

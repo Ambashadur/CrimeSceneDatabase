@@ -1,4 +1,4 @@
-﻿namespace CSD.Domain.Dto.Scenes;
+﻿namespace CSD.Contracts.Scenes;
 
 public class SceneDto
 {

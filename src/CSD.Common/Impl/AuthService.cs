@@ -1,7 +1,6 @@
-﻿using CSD.Domain.Dto.Users;
+﻿using System.Threading.Tasks;
+using CSD.Contracts.Users;
 using Microsoft.AspNetCore.Http;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CSD.Common.Impl;
 

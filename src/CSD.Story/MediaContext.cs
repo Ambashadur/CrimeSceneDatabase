@@ -1,6 +1,6 @@
-﻿namespace CSD.Story;
+﻿namespace CSD.Contracts;
 
-public class GetMediaContext
+public class MediaContext
 {
     public long Id { get; set; }
 

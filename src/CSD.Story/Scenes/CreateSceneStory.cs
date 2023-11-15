@@ -1,13 +1,13 @@
-﻿using CSD.Common;
-using CSD.Common.DataAccess;
-using CSD.Common.Files;
-using CSD.Common.Helpers;
-using CSD.Domain.Dto.Scenes;
-using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using CSD.Common;
+using CSD.Common.DataAccess;
+using CSD.Common.Files;
+using CSD.Common.Helpers;
+using CSD.Contracts.Scenes;
+using Microsoft.Extensions.Logging;
 
 namespace CSD.Story.Scenes;
 

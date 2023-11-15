@@ -1,4 +1,4 @@
-﻿namespace CSD.Domain.Dto;
+﻿namespace CSD.Contracts;
 
 public class HashedPassword
 {

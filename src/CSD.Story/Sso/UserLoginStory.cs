@@ -1,12 +1,12 @@
-﻿using CSD.Common;
+﻿using System;
+using System.Threading.Tasks;
+using CSD.Common;
 using CSD.Common.DataAccess;
-using CSD.Domain.Dto;
-using CSD.Domain.Dto.Users;
+using CSD.Contracts;
+using CSD.Contracts.Users;
 using CSD.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Threading.Tasks;
 
 namespace CSD.Story.Sso;
 

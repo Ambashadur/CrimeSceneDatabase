@@ -1,3 +1,5 @@
-﻿namespace CSD.Story.Scenes;
+﻿using CSD.Contracts;
 
-public class GetScenePreviewStoryContext : GetMediaContext { }
+namespace CSD.Story.Scenes;
+
+public class GetScenePreviewStoryContext : MediaContext { }

@@ -1,6 +1,8 @@
-﻿namespace CSD.Story.Comments;
+﻿using CSD.Contracts;
 
-public class GetCommentsPageContext : GetPageContext
+namespace CSD.Story.Comments;
+
+public class GetCommentsPageContext : PageContext
 {
     public long UserId { get; set; }
 }

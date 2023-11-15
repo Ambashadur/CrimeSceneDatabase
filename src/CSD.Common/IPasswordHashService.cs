@@ -1,4 +1,4 @@
-﻿using CSD.Domain.Dto;
+﻿using CSD.Contracts;
 
 namespace CSD.Common;
 

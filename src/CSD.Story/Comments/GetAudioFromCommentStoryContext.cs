@@ -1,3 +1,5 @@
-﻿namespace CSD.Story.Comments;
+﻿using CSD.Contracts;
 
-public class GetAudioFromCommentStoryContext : GetMediaContext { }
+namespace CSD.Story.Comments;
+
+public class GetAudioFromCommentStoryContext : MediaContext { }

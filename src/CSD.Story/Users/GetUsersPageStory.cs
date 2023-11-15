@@ -1,9 +1,10 @@
-﻿using CSD.Common.DataAccess;
-using CSD.Common.Helpers;
-using CSD.Domain.Dto.Users;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using CSD.Common.DataAccess;
+using CSD.Common.Helpers;
+using CSD.Contracts;
+using CSD.Contracts.Users;
 
 namespace CSD.Story.Users;
 

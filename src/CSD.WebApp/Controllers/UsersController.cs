@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using CSD.Common.Attributes;
-using CSD.Domain.Dto.Users;
+using CSD.Contracts;
+using CSD.Contracts.Users;
 using CSD.Domain.Enums;
 using CSD.Story;
 using CSD.Story.Users;

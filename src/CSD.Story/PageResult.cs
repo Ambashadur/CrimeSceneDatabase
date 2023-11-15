@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace CSD.Story;
+namespace CSD.Contracts;
 
 public class PageResult<TData>
 {

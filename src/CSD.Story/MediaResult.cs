@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace CSD.Story;
+namespace CSD.Contracts;
 
 public class MediaResult
 {

@@ -1,6 +1,6 @@
-﻿namespace CSD.Story;
+﻿namespace CSD.Contracts;
 
-public class GetPageContext
+public class PageContext
 {
     public int Page { get; set; } = 1;
 

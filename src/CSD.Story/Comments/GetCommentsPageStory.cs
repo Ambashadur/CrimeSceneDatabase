@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 using CSD.Common.DataAccess;
 using CSD.Common.Files;
 using CSD.Common.Helpers;
-using CSD.Domain.Dto.Comments;
+using CSD.Contracts;
+using CSD.Contracts.Comments;
 
 namespace CSD.Story.Comments;
 

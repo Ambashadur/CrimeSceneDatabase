@@ -1,6 +1,6 @@
 ﻿using CSD.Domain.Enums;
 
-namespace CSD.Domain.Dto.Users;
+namespace CSD.Contracts.Users;
 
 public class UserDto
 {
