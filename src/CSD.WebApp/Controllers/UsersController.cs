@@ -12,16 +12,12 @@ namespace CSD.WebApp.Controllers;
 [ApiController]
 [Authorization]
 [Route("api/[controller]")]
-public class UsersController : ControllerBase {
-    private readonly IStory<PageResult<UserDto>, GetUsersPageContext> _getUsersPageStory;
-    private readonly IStory<SetUserSceneStoryContext> _setUserSceneStory;
-
-    public UsersController(
-        IStory<PageResult<UserDto>, GetUsersPageContext> getUsersPageStory,
-        IStory<SetUserSceneStoryContext> setUserSceneStory) {
-        _getUsersPageStory = getUsersPageStory;
-        _setUserSceneStory = setUserSceneStory;
-    }
+public class UsersController(
+    IStory<PageResult<UserDto>, GetUsersPageContext> getUsersPageStory,
+    IStory<SetUserSceneStoryContext> setUserSceneStory) : ControllerBase
+{
+    private readonly IStory<PageResult<UserDto>, GetUsersPageContext> _getUsersPageStory = getUsersPageStory;
+    private readonly IStory<SetUserSceneStoryContext> _setUserSceneStory = setUserSceneStory;
 
     [HttpGet("page")]
     [Authorization(Role = UserRole.Admin)]

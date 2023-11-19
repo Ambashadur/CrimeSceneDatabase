@@ -1,5 +1,4 @@
-﻿using CSD.Common;
-using CSD.Common.Settings;
+﻿using CSD.Common.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;

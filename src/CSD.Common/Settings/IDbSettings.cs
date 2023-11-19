@@ -1,4 +1,4 @@
-﻿namespace CSD.Common;
+﻿namespace CSD.Common.Settings;
 
 public interface IDbSettings
 {
